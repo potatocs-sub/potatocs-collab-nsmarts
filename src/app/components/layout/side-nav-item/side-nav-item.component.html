@@ -1,0 +1,46 @@
+<!-- 소제목 -->
+<!-- <ng-container *ngIf="
+    isSubheading(item) &&
+    (item.label !== 'Contract' ||
+      !userInfo().isManager ||
+      userInfo().isSuperManager)
+  " class="cursor-pointer w-full box-border">
+  <div class="box-border">{{ item.label }}</div>
+  <sidenav-item class="relative" *ngFor="let subItem of item.children" [item]="subItem" [level]="0"></sidenav-item>
+</ng-container> -->
+<ng-container class="cursor-pointer w-full box-border">
+  <div class="box-border">{{ item.label }}</div>
+  <app-side-nav-item class="relative" *ngFor="let subItem of item.children" [item]="subItem"
+    [level]="0"></app-side-nav-item>
+</ng-container>
+
+<!-- 링크 -->
+
+<ng-container *ngIf="isLink(item) && isReplacement(item)">
+  <!-- class="item" -->
+  <a matRipple (click)="item.label === '로그아웃' ? signOut() : null" [routerLink]="item.route"
+    class="item cursor-pointer w-full flex items-center h-[70px] rounded-lg px-5 box-border hover:bg-white"
+    routerLinkActive="active">
+    <mat-icon class="mr-5">{{ item.icon }}</mat-icon>
+    <span class="font-medium">{{ item.label }}</span>
+  </a>
+</ng-container>
+
+
+<!-- 드롭다운 -->
+<ng-container *ngIf="isDropdown(item)">
+  <div>
+    <!-- class="item" -->
+    <div matRipple
+      class="item cursor-pointer w-full flex items-center h-[70px] rounded-lg px-5 box-border hover:bg-white"
+      (click)="toggleOpen()" [class.active]="isOpen || isActive" [class.open]="isOpen">
+      <mat-icon class="mr-5">{{ item.icon }}</mat-icon>
+      <span class="font-medium">{{ item.label }}</span>
+    </div>
+
+    <div [@dropdown]="isOpen ? 'open' : 'closed'" class="overflow-hidden">
+      <app-side-nav-item class="relative" *ngFor="let subItem of item.children" [item]="subItem"
+        [level]="level + 1"></app-side-nav-item>
+    </div>
+  </div>
+</ng-container>

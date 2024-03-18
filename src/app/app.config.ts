@@ -6,6 +6,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment.development';
 import { MaterialsModule } from './materials/materials.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 export function tokenGetter() {
   return localStorage.getItem(environment.tokenName);
 }
@@ -37,6 +38,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
-    provideAnimations(),
+    provideAnimations(), provideAnimationsAsync(),
   ]
 };

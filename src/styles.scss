@@ -2,3 +2,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+$sidenav-width: 279px;
+$sidenav-toolbar-height: 64px; // material default
+$sidenav-toolbar-height-mobile: 56px; // material default <599px
+//$sidenav-bgColor: #1a202e;
+$sidenav-bgColor: #00154F;
+//$sidenav-active-color: #141924;
+$sidenav-active-color: #F4AF1B;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif !important;
+}
+
+
+// meeting-list 페이지 filter 클래스 input
+.filter {
+
+  // tailwind css 필터부분 깨지는거 수정
+  .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+    border-right-style: hidden !important;
+    box-shadow: none !important;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    height: 50px !important;
+  }
+
+  label {
+    padding-bottom: 6px;
+  }
+
+  .mat-mdc-form-field-icon-prefix>.mat-icon,
+  .mat-mdc-form-field-icon-suffix>.mat-icon {
+    padding-bottom: 15px;
+    color: #888888;
+  }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
