@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, } from '@angular/router';
 import { tokenGetter } from '../app.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { DialogService } from '../services/dialog/dialog.service';
+import { DialogService } from '../stores/dialog/dialog.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
 

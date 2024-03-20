@@ -16,7 +16,7 @@ module.exports = {
       // logo
       logo: ["Alfa Slab One"],
     },
-    // colors: {
+    // colors: {  
     //   main: "#20BF1A",
     // },
   },

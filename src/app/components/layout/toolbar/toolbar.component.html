@@ -1,16 +1,15 @@
 <mat-toolbar class="h-[70px] bg-[#00154F] box-border border-b-[#E3E3E3] text-white border-l">
-  <div class="h-full w-[1440px] mx-auto relative flex items-center px">
-    <!-- fxHide: https://github.com/angular/flex-layout/wiki/Responsive-API -->
-    <button id="menu_button" [ngStyle]="{ 'display': isDesktop() ? 'none':'block' }" class="mr-8 ml-5"
-      (click)="openSidenav()" mat-icon-button fxHide.gt-md>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <!-- <span class="toolbarLeftTitle">
+  <!-- fxHide: https://github.com/angular/flex-layout/wiki/Responsive-API -->
+  <button id="menu_button" [ngStyle]="{ 'display': isDesktop() ? 'none':'block' }" class="mr-8 ml-5"
+    (click)="openSidenav()" mat-icon-button fxHide.gt-md>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <!-- <span class="toolbarLeftTitle">
 	
 	</span> -->
-    <span class="example-spacer"></span>
-    <div fxLayout="row" fxLayoutGap="20px">
-      <!-- <div>
+  <span class="example-spacer"></span>
+  <div fxLayout="row" fxLayoutGap="20px">
+    <!-- <div>
 			<button mat-button [matMenuTriggerFor]="notification" class="mat-icon-button">
 				<mat-icon matBadge="5" matBadgeColor="warn">notifications</mat-icon>
 			</button>
@@ -52,48 +51,47 @@
 			</mat-menu>
 		</div> -->
 
-      <div>
-        <button mat-button [matMenuTriggerFor]="profile">
-          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
-            <mat-icon>person</mat-icon>
-            <!-- <span class="profileName">{{userProfileData?.name}}</span> -->
-          </div>
-        </button>
-        <mat-menu #profile="matMenu" xPosition="before" class="dropdown-box">
-          <div class="dropdown">
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="dropdown-header">
-              <div fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="dropdown-profile-icon">person</mat-icon>
-                <div class="dropdown-profile-heading">
-                  <!-- {{userProfileData?.name}} -->
-                </div>
+    <div>
+      <button mat-button [matMenuTriggerFor]="profile" class="text-white">
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+          <mat-icon>person</mat-icon>
+          <!-- <span class="profileName">{{userProfileData?.name}}</span> -->
+        </div>
+      </button>
+      <mat-menu #profile="matMenu" xPosition="before" class="dropdown-box">
+        <div class="dropdown">
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="dropdown-header">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="dropdown-profile-icon">person</mat-icon>
+              <div class="dropdown-profile-heading">
+                <!-- {{userProfileData?.name}} -->
               </div>
-              <mat-icon>apps</mat-icon>
             </div>
-            <div class="dropdown-content">
-              <!-- <div matRipple fxLayout="row" fxLayoutAlign="space-between center" class="notification notification-cursor"
+            <mat-icon>apps</mat-icon>
+          </div>
+          <div class="dropdown-content">
+            <!-- <div matRipple fxLayout="row" fxLayoutAlign="space-between center" class="notification notification-cursor"
               [routerLink]="['/profile']"> -->
-              <div fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="icon-box-1 company-request">account_circle</mat-icon>
-                <div>
-                  <div class="notification-label">My Profile</div>
-                  <div class="notification-description">Personal Information</div>
-                </div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="icon-box-1 company-request">account_circle</mat-icon>
+              <div>
+                <div class="notification-label">My Profile</div>
+                <div class="notification-description">Personal Information</div>
               </div>
-
-              <mat-icon class="icon-box-2">keyboard_arrow_right</mat-icon>
-
             </div>
-            <!-- <mat-divider></mat-divider> -->
+
+            <mat-icon class="icon-box-2">keyboard_arrow_right</mat-icon>
 
           </div>
-          <div class="dropdown-footer" fxLayout="row" fxLayoutAlign="center center">
-            <!-- <button mat-button color="primary" (click)="logOut();">LOGOUT</button> -->
-          </div>
-          <!-- </div> -->
-        </mat-menu>
-      </div>
+          <!-- <mat-divider></mat-divider> -->
+
+        </div>
+        <div class="dropdown-footer" fxLayout="row" fxLayoutAlign="center center">
+          <!-- <button mat-button color="primary" (click)="logOut();">LOGOUT</button> -->
+        </div>
+        <!-- </div> -->
+      </mat-menu>
     </div>
-
   </div>
+
 </mat-toolbar>
