@@ -8,18 +8,24 @@ export const signInGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const routePath = state.url; // state.url을 사용하여 현재 경로를 가져옵니다.
 
-  const token = tokenGetter();
-  if (!authService.isAuthenticated(token)) {
+  // 사용자 인증 여부를 확인합니다.
+  const isAuthenticated = authService.getTokenInfo();
+  console.log('isAuth :', isAuthenticated)
+  // 인증되지 않은 사용자 처리 로직
+  if (!isAuthenticated) {
+    // 'sign-in' 또는 빈 경로 접근 허용
     if (routePath === '/sign-in' || routePath === '/') {
-      return true; // 인증되지 않은 사용자가 'sign-in' 또는 빈 경로에 접근하는 것은 허용
+      return true;
     }
-    router.navigate(['/']); // 인증되지 않은 사용자가 다른 경로에 접근하는 경우 홈 페이지로 리디렉션
+    // 그 외 경로는 홈으로 리디렉션
+    router.navigate(['/']);
     return false;
-  } else {
-    if (routePath === '/sign-in' || routePath === '/') {
-      router.navigate(['/main']); // 이미 인증된 사용자가 'sign-in' 또는 빈 경로에 접근하려고 할 때 메인 페이지로 리디렉션
-      return false;
-    }
-    return true; // 인증된 사용자는 모든 경로에 접근 가능
   }
+
+  // 인증된 사용자 처리 로직
+  if (routePath === '/sign-in' || routePath === '/') {
+    router.navigate(['/main']); // 'sign-in' 또는 빈 경로 접근 시 메인 페이지로 리디렉션
+    return false;
+  }
+  return true;
 };
