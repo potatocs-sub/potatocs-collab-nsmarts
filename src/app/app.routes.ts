@@ -6,7 +6,7 @@ import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
 
 export const routes: Routes = [
   {
-    path: 'welcome',
+    path: '',
     component: IndexComponent,
     canActivate: [signInGuard]
   },
@@ -49,6 +49,10 @@ export const routes: Routes = [
       {
         path: 'countries',
         loadChildren: () => import('./pages/countries/routes').then(m => m.HOLIDAYS_ROUTES),
+      },
+      {
+        path: 'admins',
+        loadComponent: () => import('./pages/admins/admins-list.component').then(m => m.AdminsListComponent),
       },
       // {
       //   path: '',

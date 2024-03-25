@@ -9,19 +9,20 @@
   <sidenav-item class="relative" *ngFor="let subItem of item.children" [item]="subItem" [level]="0"></sidenav-item>
 </ng-container> -->
 <ng-container class="cursor-pointer w-full box-border">
-  <div class="box-border">{{ item.label }}</div>
+  <div class="box-border text-white">{{ item.label }}</div>
   <app-side-nav-item class="relative" *ngFor="let subItem of item.children" [item]="subItem"
     [level]="0"></app-side-nav-item>
 </ng-container>
 
 <!-- 링크 -->
 
-<ng-container *ngIf="isLink(item) && isReplacement(item)">
+<ng-container *ngIf="isLink(item)">
   <!-- class="item" -->
-  <a matRipple (click)="item.label === '로그아웃' ? signOut() : null" [routerLink]="item.route"
-    class="item cursor-pointer w-full flex items-center h-[70px] rounded-lg px-5 box-border hover:bg-white"
+  <a matRipple (click)="item.label === '로그아웃' ? signOut() : null"
+    [routerLinkActiveOptions]="item.routerLinkActive || { exact: false }" [routerLink]="item.route"
+    class="item cursor-pointer w-full flex items-center h-[70px] rounded-lg px-5 box-border hover:#F4AF1B" matRipple
     routerLinkActive="active">
-    <mat-icon class="mr-5">{{ item.icon }}</mat-icon>
+    <mat-icon class="mr-5 item-icon">{{ item.icon }}</mat-icon>
     <span class="font-medium">{{ item.label }}</span>
   </a>
 </ng-container>
@@ -32,10 +33,10 @@
   <div>
     <!-- class="item" -->
     <div matRipple
-      class="item cursor-pointer w-full flex items-center h-[70px] rounded-lg px-5 box-border hover:bg-white"
+      class="item cursor-pointer w-full flex items-center h-[70px] rounded-lg px-5 box-border hover:bg-white  "
       (click)="toggleOpen()" [class.active]="isOpen || isActive" [class.open]="isOpen">
-      <mat-icon class="mr-5">{{ item.icon }}</mat-icon>
-      <span class="font-medium">{{ item.label }}</span>
+      <mat-icon class="mr-5 text-white">{{ item.icon }}</mat-icon>
+      <span class="font-medium text-white">{{ item.label }}</span>
     </div>
 
     <div [@dropdown]="isOpen ? 'open' : 'closed'" class="overflow-hidden">

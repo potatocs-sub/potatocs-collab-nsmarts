@@ -17,10 +17,5 @@ export const COMPANIES_ROUTES: Route[] = [
     path: 'edit/:id',
     loadComponent: () =>
       import('./companies-edit/companies-edit.component').then((m) => m.CompaniesEditComponent)
-  },
-  {
-    path: 'admins',
-    loadComponent: () =>
-      import('./admins/admins-list.component').then((m) => m.AdminsListComponent)
-  },
+  }
 ];
