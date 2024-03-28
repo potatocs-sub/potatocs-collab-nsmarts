@@ -65,7 +65,8 @@ export class LayoutComponent {
  */
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.isDesktop.update(() => window.innerWidth > 1440);
+    // this.isDesktop.update(() => window.innerWidth > 1440);
+    this.isDesktop.update(() => window.innerWidth > 1280);
   }
 
   closeEvent() {

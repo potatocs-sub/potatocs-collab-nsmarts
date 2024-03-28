@@ -7,6 +7,7 @@ import { environment } from '../environments/environment.development';
 import { MaterialsModule } from './materials/materials.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 export function tokenGetter() {
   return localStorage.getItem(environment.tokenName);
 }
@@ -29,8 +30,10 @@ export const appConfig: ApplicationConfig = {
           tokenGetter: tokenGetter,
           allowedDomains: [
             environment.apiUrl,
+            environment.localhostUrl,
+            environment.domainUrl
           ],
-          disallowedRoutes: ['/api/v1/auth/signIn', '/api/v1/auth/signUp'],
+          disallowedRoutes: ['/api/v1/nsAuth/signIn', '/api/v1/nsAuth/signUp'],
         },
       }),
       MaterialsModule,
@@ -38,6 +41,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
-    provideAnimations(), provideAnimationsAsync(),
+    provideAnimations(), provideAnimationsAsync(), provideAnimationsAsync(),
   ]
 };

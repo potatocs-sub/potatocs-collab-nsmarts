@@ -9,8 +9,8 @@ export const signInGuard: CanActivateFn = (route, state) => {
   const routePath = state.url; // state.url을 사용하여 현재 경로를 가져옵니다.
 
   // 사용자 인증 여부를 확인합니다.
-  const isAuthenticated = authService.getTokenInfo();
-  console.log('isAuth :', isAuthenticated)
+  const isAuthenticated = authService.isAuthenticated();
+
   // 인증되지 않은 사용자 처리 로직
   if (!isAuthenticated) {
     // 'sign-in' 또는 빈 경로 접근 허용

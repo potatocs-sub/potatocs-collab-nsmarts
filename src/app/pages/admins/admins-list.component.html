@@ -1,1 +1,85 @@
-<p>admin-list works!</p>
+<div class="mainContentContainer">
+
+  @if (isLoadingResults || isRateLimitReached) {
+  <div class="example-loading-shade">
+    @if (isLoadingResults) {
+    <mat-spinner></mat-spinner>
+    }
+    @if (isRateLimitReached) {
+    <div class="example-rate-limit-reached">
+      GitHub's API rate limit has been reached. It will be reset in one minute.
+    </div>
+    }
+  </div>
+  }
+  <div class="mainContent">
+    <div fxLayout="row">
+      <!-- <div class="mainTitle" *ngIf="myRank == 'manager-list' && !managerName">Manager List</div>
+    <div class="mainTitle" *ngIf="myRank == 'manager-list' && managerName">Manager {{ managerName }}'s List
+      <button mat-flat-button color="primary" class="titleBtn" (click)="getMyEmployeeLists()">
+        back
+      </button>
+    </div> -->
+      <div class="mainTitle">Admin List</div>
+    </div>
+
+    <div class="historyTableBox">
+      <table mat-table [dataSource]="adminList" class="mat-elevation-z8 historyTable" matSort matSortActive="createdAt"
+        matSortDisableClear matSortDirection="desc">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef> Company </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button class="editCompanyBtn" (click)="connectCompany(element._id)"
+              *ngIf="element.company_id else noCompany">
+              {{ element.company_id?.company_name }}
+            </button>
+            <ng-template #noCompany>
+              <button mat-raised-button class="deleteBtn" (click)="connectCompany(element._id)">
+                NO COMPANY
+              </button>
+            </ng-template>
+            <!-- <span 
+                          class="notCompany"
+                          *ngIf="!element.company_id"
+                          >
+                          NO COMPANY
+                      </span> -->
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-flat-button class="deleteBtn" (click)="deleteAdmin(element._id)">
+              delete
+            </button>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="9999">
+            No data
+          </td>
+        </tr>
+      </table>
+      <mat-paginator [length]="resultsLength" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page">
+      </mat-paginator>
+    </div>
+    <!-- </div>
+  </div> -->
+  </div>
+</div>

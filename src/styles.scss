@@ -18,6 +18,17 @@ body {
   font-family: "Noto Sans KR", sans-serif !important;
 }
 
+/* 각 sccs에 넣으면 적용이 안되는 Angular Material */
+
+.mat-mdc-card {
+  box-shadow: none !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right-style: hidden !important;
+  box-shadow: none !important;
+}
+
 
 // meeting-list 페이지 filter 클래스 input
 .filter {
@@ -52,3 +63,5 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

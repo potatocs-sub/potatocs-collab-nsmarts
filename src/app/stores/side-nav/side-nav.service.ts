@@ -17,7 +17,7 @@ export class SideNavService {
   ) {
     this.breakpointObserver
       .observe(
-        [Breakpoints.Large, Breakpoints.XLarge] // 현재 1280px 기준
+        [Breakpoints.Large, Breakpoints.XLarge] //  1280px 이상 1920px 미만, 1920px이상 1280이상이면 true
         // ['(min-width: 1441px)'] // 현재 1441px 보다 작으면 false가 나온다
       )
       .pipe(
@@ -32,10 +32,10 @@ export class SideNavService {
       ).subscribe();
 
     effect(() => {
-      console.log(this.isDesktop())
+      console.log('데스크탑 모드 : ', this.isDesktop())
     })
     effect(() => {
-      console.log(this.isSideNavOpen())
+      console.log('sidenav : ', this.isSideNavOpen())
     })
   }
 

@@ -41,8 +41,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   exports: [
+    FlexLayoutModule,
     MatNativeDateModule,
     MatToolbarModule,
     MatTooltipModule,
