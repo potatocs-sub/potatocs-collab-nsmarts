@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CompaniesService } from '../../../services/companies/companies.service';
 import { DialogService } from '../../../stores/dialog/dialog.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { catchError, map, merge, of, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-companies-list',
@@ -25,11 +27,17 @@ export class CompaniesListComponent {
   filterSelectObj: any = [];
   company_max_day: any = 0;
 
+  pageSize = 10;
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
   dataSource = new MatTableDataSource;
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   myRank = window.location.pathname.split('/')[3];
   managerName = '';
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   isRollover = false;
   constructor(
@@ -61,17 +69,33 @@ export class CompaniesListComponent {
   }
 
   getCompanyList() {
-    this.companiesService.getCompanyList().subscribe({
-      next: (res: any) => {
-        console.log(res)
-        this.dataSource = res.getCompany;
-        this.dataSource = new MatTableDataSource<any>(res.getCompany);
-        this.dataSource.paginator = this.paginator;
-      },
-      error: (error: any) => {
-        console.log(error)
-      }
-    })
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.companiesService.queryCompanies(
+            this.sort.active,
+            this.sort.direction,
+            this.paginator.pageIndex,
+            this.paginator.pageSize,
+          ).pipe(catchError(() => of(null)));
+        }),
+        map((res: any) => {
+          // Flip flag to show that loading has finished.
+          console.log(res)
+          this.isLoadingResults = false;
+          if (res === null) {
+            this.isRateLimitReached = true;
+            return [];
+          }
+          this.isRateLimitReached = false;
+          this.resultsLength = res.foundCompanyList.totalCount;
+          return res.foundCompanyList;
+        }),
+      )
+      .subscribe((data: any) => this.dataSource = data);
   }
 
   backManagerList() {

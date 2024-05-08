@@ -24,7 +24,8 @@
 
 
 
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 historyTable">
+      <table mat-table [dataSource]="dataSource" matSort matSortActive="createdAt" matSortDisableClear
+        matSortDirection="desc" class="mat-elevation-z8 historyTable">
 
         <ng-container matColumnDef="code">
           <th mat-header-cell *matHeaderCellDef> Code </th>

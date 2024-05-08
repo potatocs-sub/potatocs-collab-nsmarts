@@ -10,8 +10,8 @@ describe('CountriesAddDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CountriesAddDialogComponent]
     })
-      .compileComponents();
-
+    .compileComponents();
+    
     fixture = TestBed.createComponent(CountriesAddDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

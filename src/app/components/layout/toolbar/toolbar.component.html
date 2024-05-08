@@ -1,9 +1,12 @@
 <mat-toolbar class="h-[70px] bg-[#00154F] box-border border-b-[#E3E3E3] text-white border-l">
   <!-- fxHide: https://github.com/angular/flex-layout/wiki/Responsive-API -->
-  <button id="menu_button" [ngStyle]="{ 'display': isDesktop() ? 'none':'block' }" class="mr-8 ml-5"
-    (click)="openSidenav()" mat-icon-button fxHide.gt-md>
+  @if(!isDesktop()){
+  <button id="menu_button" class="mr-8 ml-5" (click)="openSidenav()" mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>
+  }
+
+
   <!-- <span class="toolbarLeftTitle">
 	
 	</span> -->

@@ -15,6 +15,11 @@ export class CompaniesService {
     return this.http.get(this.baseUrl + '/nsmarts/companies')
   }
 
+  // 회사 목록 가져오기
+  queryCompanies(active: string, direction: string, pageIndex: number, pageSize: number) {
+    return this.http.get(this.baseUrl + '/nsmarts/companies', { params: { active, direction, pageIndex, pageSize } })
+  }
+
   // 회사 추가
   addCompany(companyData: any) {
     return this.http.post(this.baseUrl + '/nsmarts/companies', companyData)

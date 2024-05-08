@@ -11,14 +11,15 @@ export class AdminsService {
 
   private http = inject(HttpClient)
   constructor() { }
-  // 회사 목록 가져오기
+  // 관리자 목록
   getAdminList(active: string, direction: string, pageIndex: number, pageSize: number) {
     return this.http.get(this.baseUrl + '/nsmarts/admins/', { params: { active, direction, pageIndex, pageSize } })
   }
 
-  // 회사 추가
-  addCompany(companyData: any) {
-    return this.http.post(this.baseUrl + '/nsmarts/companies', companyData)
+  // admin이랑 company 매칭해주기
+  connectAdminCompany(data: any) {
+    // console.log(data);
+    return this.http.patch(this.baseUrl + '/nsmarts/admins/connectAdminCompany', data)
   }
 
   getCompanyById(companyId: any) {

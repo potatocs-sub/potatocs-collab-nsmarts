@@ -1,0 +1,82 @@
+<div class="mainContentContainer">
+  <div class="mainContent">
+    <div fxLayout="row">
+      <!-- <div class="mainTitle" *ngIf="myRank == 'manager-list' && !managerName">Manager List</div>
+			<div class="mainTitle" *ngIf="myRank == 'manager-list' && managerName">Manager {{ managerName }}'s List
+				<button mat-flat-button color="primary" class="titleBtn" (click)="getMyEmployeeLists()">
+					back
+				</button>
+			</div> -->
+      <div class="mainTitle">Company List</div>
+    </div>
+
+    <div class="historyTableBox">
+      <!-- <div class="content">
+				<div class="example-container mat-elevation-z8"> -->
+
+      <table mat-table [dataSource]="companies" class="mat-elevation-z8 historyTable" matSort matSortActive="createdAt"
+        matSortDisableClear matSortDirection="desc">
+
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef> Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.company_code}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.company_name}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="rollover">
+          <th mat-header-cell *matHeaderCellDef> Rollover </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.rollover_max_month">
+              O
+            </span>
+            <span *ngIf="!element.rollover_max_month">
+              X
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="rollover_max_month">
+          <th mat-header-cell *matHeaderCellDef> Rollover max month </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.rollover_max_month?element.rollover_max_month:0}}
+            <span *ngIf="element.rollover_max_month">
+              Month(s)
+            </span>
+          </td>
+
+        </ng-container>
+
+
+        <ng-container matColumnDef="rollover_max_day">
+          <th mat-header-cell *matHeaderCellDef> Rollover max day </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.rollover_max_day?element.rollover_max_day:0}}
+            <span *ngIf="element.rollover_max_day">
+              day(s)
+            </span>
+          </td>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr class="company-element-row" mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="connectCompanyAdmin(row._id)"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="9999">
+            No data
+          </td>
+        </tr>
+      </table>
+      <mat-paginator [length]="resultsLength" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page">>
+      </mat-paginator>
+    </div>
+    <!-- </div>
+		</div> -->
+  </div>
+</div>
