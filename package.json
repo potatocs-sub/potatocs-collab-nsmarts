@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4400",
-    "build": "ng build",
-    "staging": "ng build --configuration=staging",
+    "build": "ng build --output-hashing=all --base-href=nsmarts ",
+    "staging": "ng build --configuration=staging --output-hashing=all --base-href=nsmarts",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
