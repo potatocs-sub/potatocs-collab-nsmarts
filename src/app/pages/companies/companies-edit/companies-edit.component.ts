@@ -11,15 +11,14 @@ import { MaterialsModule } from '../../../materials/materials.module';
   standalone: true,
   imports: [CommonModule, MaterialsModule],
   templateUrl: './companies-edit.component.html',
-  styleUrl: './companies-edit.component.scss'
+  styleUrl: './companies-edit.component.scss',
 })
 export class CompaniesEditComponent {
-  fb = inject(FormBuilder)
-  route = inject(ActivatedRoute)
-  router = inject(Router)
-  dialogService = inject(DialogService)
-  companiesService = inject(CompaniesService)
-
+  fb = inject(FormBuilder);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
+  dialogService = inject(DialogService);
+  companiesService = inject(CompaniesService);
 
   days: any;
   start_date_sec: any;
@@ -36,7 +35,7 @@ export class CompaniesEditComponent {
         year: [0],
         annual_leave: [0, [Validators.min(0)]],
         sick_leave: [0, [Validators.min(0)]],
-      })
+      }),
     ]),
     rollover: [false],
     rollover_max_month: [0, [Validators.min(0)]],
@@ -46,14 +45,16 @@ export class CompaniesEditComponent {
     isReplacementDay: [false],
     rd_validity_term: [''],
     annual_policy: ['byContract'],
-    isMinusAnnualLeave: [false]
+    isMinusAnnualLeave: [false],
   });
 
-  leave_standard: FormArray = this.editCompanyForm.get('leave_standard') as FormArray;
+  leave_standard: FormArray = this.editCompanyForm.get(
+    'leave_standard'
+  ) as FormArray;
   year: any;
   companyId: string;
   constructor() {
-    this.companyId = this.route.snapshot.paramMap.get('id')!
+    this.companyId = this.route.snapshot.paramMap.get('id')!;
   }
 
   ngAfterViewInit() {
@@ -64,13 +65,10 @@ export class CompaniesEditComponent {
         this.patchLeaveStadard(res.data);
       },
       error: (error: any) => {
-        this.dialogService.openDialogNegative(error.message)
-      }
-    })
-
-
+        this.dialogService.openDialogNegative(error.message);
+      },
+    });
   }
-
 
   //Cancel 버튼 클릭
   toBack(): void {
@@ -91,13 +89,11 @@ export class CompaniesEditComponent {
     });
   }
 
-
   addItem() {
     const newLeaveStandard = this.createLeaveStandard();
     this.leave_standard.push(newLeaveStandard);
     this.updateYears();
   }
-
 
   //Leave Standard에 - 버튼 클릭
   cancelItem(i: number) {
@@ -111,24 +107,20 @@ export class CompaniesEditComponent {
     return this.leave_standard;
   }
 
-
-
   patchLeaveStadard(data: any) {
-    console.log(data)
+    console.log(data);
     // 기존 컨트롤 제거
     this.leave_standard.clear();
     // 새로운 컨트롤 추가
     for (let i = 0; i < data.leaveStandardsLength; i++) {
-      this.leave_standard.push(
-        this.getLeaveStandard(data.leave_standard[i])
-      );
+      this.leave_standard.push(this.getLeaveStandard(data.leave_standard[i]));
     }
   }
 
   /**
-  * 기존 연차정책을 가져와, formgroup객체 형식으로 만든 후 FormArray에 담는다.
-  * @returns
-  */
+   * 기존 연차정책을 가져와, formgroup객체 형식으로 만든 후 FormArray에 담는다.
+   * @returns
+   */
   getLeaveStandard(data: any): FormGroup {
     return this.fb.group({
       year: data.year,
@@ -139,48 +131,65 @@ export class CompaniesEditComponent {
 
   editCompany(): void {
     if (this.editCompanyForm.valid) {
-      console.log(this.editCompanyForm.value)
+      console.log(this.editCompanyForm.value);
       const companyData = this.prepareCompanyData();
-      console.log(companyData)
+      console.log(companyData);
       this.companiesService.editCompany(this.companyId, companyData).subscribe({
         next: () => {
           this.router.navigate(['companies']);
-          this.dialogService.openDialogPositive('Successfully, the company has been added.');
+          this.dialogService.openDialogPositive(
+            'Successfully, the company has been edited.'
+          );
         },
         error: (err: any) => {
           console.error(err);
-          const errorMessage = err.status === 409
-            ? 'Company name is duplicated.'
-            : 'An error occurred while adding company.';
+          const errorMessage =
+            err.status === 409
+              ? 'Company name is duplicated.'
+              : 'An error occurred while edited company.';
           this.dialogService.openDialogNegative(errorMessage);
-        }
+        },
       });
     }
   }
 
-
   private prepareCompanyData(): any {
     const formValue = this.editCompanyForm.value;
-    const leaveStandards = formValue.leave_standard ? formValue.leave_standard : [];
-    const lastLeaveStandard = leaveStandards.slice(-1)[0] || { annualLeave: 0, sickLeave: 0 };
+    const leaveStandards = formValue.leave_standard
+      ? formValue.leave_standard
+      : [];
+    const lastLeaveStandard = leaveStandards.slice(-1)[0] || {
+      annualLeave: 0,
+      sickLeave: 0,
+    };
     return {
       ...formValue,
       rolloverMaxMonth: formValue.rollover ? formValue.rollover_max_month : 0,
       rolloverMaxLeaveDays: formValue.rollover ? formValue.rollover_max_day : 0,
-      rdValidityTerm: formValue.isReplacementDay ? formValue.rd_validity_term : 0,
+      rdValidityTerm: formValue.isReplacementDay
+        ? formValue.rd_validity_term
+        : 0,
       leave_standard: leaveStandards,
-      leaveStandards: this.generateFutureLeaveStandards(leaveStandards, lastLeaveStandard),
-      leaveStandardsLength: leaveStandards.length
+      leaveStandards: this.generateFutureLeaveStandards(
+        leaveStandards,
+        lastLeaveStandard
+      ),
+      leaveStandardsLength: leaveStandards.length,
     };
   }
 
-  private generateFutureLeaveStandards(leaveStandards: any[], lastLeaveStandard: any): any[] {
+  private generateFutureLeaveStandards(
+    leaveStandards: any[],
+    lastLeaveStandard: any
+  ): any[] {
     return leaveStandards.concat(
-      Array(50).fill(null).map((_, index) => ({
-        year: leaveStandards.length + index + 1,
-        annual_leave: lastLeaveStandard.annual_leave,
-        sick_lLeave: lastLeaveStandard.sick_leave
-      }))
+      Array(50)
+        .fill(null)
+        .map((_, index) => ({
+          year: leaveStandards.length + index + 1,
+          annual_leave: lastLeaveStandard.annual_leave,
+          sick_lLeave: lastLeaveStandard.sick_leave,
+        }))
     );
   }
 }
