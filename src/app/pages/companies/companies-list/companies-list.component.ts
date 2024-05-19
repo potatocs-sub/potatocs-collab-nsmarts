@@ -14,15 +14,21 @@ import { catchError, map, merge, of, startWith, switchMap } from 'rxjs';
   standalone: true,
   imports: [CommonModule, MaterialsModule],
   templateUrl: './companies-list.component.html',
-  styleUrl: './companies-list.component.scss'
+  styleUrl: './companies-list.component.scss',
 })
 export class CompaniesListComponent {
-  public dialogService = inject(DialogService)
-  router = inject(Router)
-  companiesService = inject(CompaniesService)
+  public dialogService = inject(DialogService);
+  router = inject(Router);
+  companiesService = inject(CompaniesService);
 
-
-  displayedColumns: string[] = ['code', 'name', 'rollover', 'rollover_max_month', 'rollover_max_day', 'btns'];
+  displayedColumns: string[] = [
+    'code',
+    'name',
+    'rollover',
+    'rollover_max_month',
+    'rollover_max_day',
+    'btns',
+  ];
   filterValues = {};
   filterSelectObj: any = [];
   company_max_day: any = 0;
@@ -31,7 +37,7 @@ export class CompaniesListComponent {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  dataSource = new MatTableDataSource;
+  dataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -40,9 +46,7 @@ export class CompaniesListComponent {
   managerName = '';
 
   isRollover = false;
-  constructor(
-
-  ) { }
+  constructor() {}
 
   ngAfterViewInit() {
     // if (this.company_max_day != undefined) {
@@ -64,7 +68,14 @@ export class CompaniesListComponent {
     // })
     if (this.company_max_day != undefined) {
       this.isRollover = true;
-      this.displayedColumns = ['code', 'name', 'rollover', 'rollover_max_month', 'rollover_max_day', 'btns'];
+      this.displayedColumns = [
+        'code',
+        'name',
+        'rollover',
+        'rollover_max_month',
+        'rollover_max_day',
+        'btns',
+      ];
     }
   }
 
@@ -75,27 +86,29 @@ export class CompaniesListComponent {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.companiesService.queryCompanies(
-            this.sort.active,
-            this.sort.direction,
-            this.paginator.pageIndex,
-            this.paginator.pageSize,
-          ).pipe(catchError(() => of(null)));
+          return this.companiesService
+            .queryCompanies(
+              this.sort.active,
+              this.sort.direction,
+              this.paginator.pageIndex,
+              this.paginator.pageSize
+            )
+            .pipe(catchError(() => of(null)));
         }),
         map((res: any) => {
           // Flip flag to show that loading has finished.
-          console.log(res)
+          console.log(res);
           this.isLoadingResults = false;
           if (res === null) {
             this.isRateLimitReached = true;
             return [];
           }
           this.isRateLimitReached = false;
-          this.resultsLength = res.foundCompanyList.totalCount;
+          this.resultsLength = res.totalCount;
           return res.foundCompanyList;
-        }),
+        })
       )
-      .subscribe((data: any) => this.dataSource = data);
+      .subscribe((data: any) => (this.dataSource = data));
   }
 
   backManagerList() {
@@ -106,8 +119,6 @@ export class CompaniesListComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-
 
   // 회사 추가
   addCompany() {
@@ -121,24 +132,28 @@ export class CompaniesListComponent {
 
   // 회사 삭제
   deleteCompanyDialog(id: any) {
-    this.dialogService.openDialogConfirm('Do you delete this company?').subscribe({
-      next: (res: any) => {
-        if (res) this.deleteCompany(id)
-      },
-      error: (err) => {
-        console.log(err);
-        this.dialogService.openDialogNegative(err.error.message);
-      }
-    })
+    this.dialogService
+      .openDialogConfirm('Do you delete this company?')
+      .subscribe({
+        next: (res: any) => {
+          if (res) this.deleteCompany(id);
+        },
+        error: (err) => {
+          console.log(err);
+          this.dialogService.openDialogNegative(err.error.message);
+        },
+      });
   }
 
   deleteCompany(id: any) {
     // 회사 삭제
     this.companiesService.deleteCompany(id).subscribe((data: any) => {
       if (data.message == 'delete company') {
-        this.dialogService.openDialogPositive('Successfully, the company has been delete.');
+        this.dialogService.openDialogPositive(
+          'Successfully, the company has been delete.'
+        );
         this.getCompanyList();
       }
-    })
+    });
   }
 }
