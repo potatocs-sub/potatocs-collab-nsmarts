@@ -86,10 +86,14 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    const token = this.getToken();
-    return !!token && !this.jwtHelper.isTokenExpired(token);
+    try {
+      const token = this.getToken();
+      return !!token && !this.jwtHelper.isTokenExpired(token);
+    } catch (error) {
+      console.error("Error checking authentication:", error);
+      return false;
+    }
   }
-
   getTokenInfo(): any | null {
     const token = this.getToken();
     return token ? this.jwtHelper.decodeToken(token) : null;

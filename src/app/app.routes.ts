@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 import { IndexComponent } from './pages/index/index.component';
-import { signInGuard } from './guards/sign-in.guard';
 import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
+import { isLoggedInGuard } from './guards/is-logged-in.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
-    canActivate: [signInGuard]
+    canActivate: [isLoggedInGuard]
   },
   {
     path: 'sign-in',
