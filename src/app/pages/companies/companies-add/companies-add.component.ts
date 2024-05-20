@@ -58,7 +58,7 @@ export class CompaniesAddComponent {
   ) as FormArray;
   year: any;
 
-  constructor() {}
+  constructor() { }
 
   //Cancel 버튼 클릭
   toBack(): void {
