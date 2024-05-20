@@ -124,7 +124,7 @@ export class CompaniesAddComponent {
       rolloverMaxMonth: formValue.isRollover ? formValue.rollover_max_month : 0,
       rolloverMaxLeaveDays: formValue.isRollover ? formValue.rollover_max_day : 0,
       rdValidityTerm: formValue.isReplacementDay ? formValue.rd_validity_term : 0,
-      leaveStandards: this.generateFutureLeaveStandards(leaveStandards, lastLeaveStandard),
+      leave_standard: this.generateFutureLeaveStandards(leaveStandards, lastLeaveStandard),
       leaveStandardsLength: leaveStandards.length
     };
   }
