@@ -1,13 +1,11 @@
 <div class="px-10 py-10 mx-auto h-full">
   <div class="mainContent">
-
     <div class="page_header">
       <div class="mainTitle">Add Company</div>
     </div>
 
     <form [formGroup]="addCompanyForm" (ngSubmit)="addCompany()">
       <div class="leaveTableContainer">
-
         <!-- company name -->
         <div class="lineDivider">
           <div class="leftTable" fxFlex="30" fxFlex.gt-md="20">
@@ -17,7 +15,11 @@
             <mat-form-field appearance="outline">
               <mat-label>Company Name</mat-label>
               <input matInput type="text" formControlName="company_name" />
-              <mat-error *ngIf="addCompanyForm.controls['company_name'].hasError('required')">
+              <mat-error
+                *ngIf="
+                  addCompanyForm.controls['company_name'].hasError('required')
+                "
+              >
                 Please enter company name.
               </mat-error>
             </mat-form-field>
@@ -31,8 +33,16 @@
           </div>
           <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
             <mat-radio-group mat-radio-group name="grpName">
-              <input type="radio" value='byYear' formControlName="annual_policy" />by year
-              <input type="radio" value='byContract' formControlName="annual_policy" />by contract
+              <input
+                type="radio"
+                value="byYear"
+                formControlName="annual_policy"
+              />by year
+              <input
+                type="radio"
+                value="byContract"
+                formControlName="annual_policy"
+              />by contract
             </mat-radio-group>
           </div>
         </div>
@@ -44,15 +54,23 @@
           </div>
           <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
             <mat-radio-group mat-radio-group name="grpName">
-              <input type="radio" [checked]="addCompanyForm.get('isRollover')?.value" [value]="true"
-                formControlName="isRollover" />Yes
-              <input type="radio" [checked]="!addCompanyForm.get('isRollover')?.value" [value]="false"
-                formControlName="isRollover" />No
+              <input
+                type="radio"
+                [checked]="addCompanyForm.get('rollover')?.value"
+                [value]="true"
+                formControlName="rollover"
+              />Yes
+              <input
+                type="radio"
+                [checked]="!addCompanyForm.get('rollover')?.value"
+                [value]="false"
+                formControlName="rollover"
+              />No
             </mat-radio-group>
           </div>
         </div>
 
-        <div *ngIf="addCompanyForm.get('isRollover')?.value === true">
+        <div *ngIf="addCompanyForm.get('rollover')?.value === true">
           <!-- rollover max month -->
           <div class="lineDivider">
             <div class="leftTable" fxFlex="30" fxFlex.gt-md="20">
@@ -61,9 +79,20 @@
             <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
               <mat-form-field appearance="outline">
                 <mat-label>Rollover Max Month (month)</mat-label>
-                <input matInput type="number" class="numeric-input" formControlName="rollover_max_month"
-                  placeholder="Rollover Max Month" />
-                <mat-error *ngIf="addCompanyForm.controls['rollover_max_month'].hasError('min')">
+                <input
+                  matInput
+                  type="number"
+                  class="numeric-input"
+                  formControlName="rollover_max_month"
+                  placeholder="Rollover Max Month"
+                />
+                <mat-error
+                  *ngIf="
+                    addCompanyForm.controls['rollover_max_month'].hasError(
+                      'min'
+                    )
+                  "
+                >
                   Please enter positive number.
                 </mat-error>
               </mat-form-field>
@@ -77,9 +106,18 @@
             <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
               <mat-form-field appearance="outline">
                 <mat-label>Rollover Max Leave Days</mat-label>
-                <input matInput type="number" class="numeric-input" formControlName="rollover_max_day"
-                  placeholder="Rollover Max Leave Days" />
-                <mat-error *ngIf="addCompanyForm.controls['rollover_max_day'].hasError('min')">
+                <input
+                  matInput
+                  type="number"
+                  class="numeric-input"
+                  formControlName="rollover_max_day"
+                  placeholder="Rollover Max Leave Days"
+                />
+                <mat-error
+                  *ngIf="
+                    addCompanyForm.controls['rollover_max_day'].hasError('min')
+                  "
+                >
                   Please enter positive number.
                 </mat-error>
               </mat-form-field>
@@ -94,8 +132,16 @@
           </div>
           <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
             <mat-radio-group mat-radio-group name="grpName">
-              <input type="radio" [value]="true" formControlName="isReplacementDay" />Yes
-              <input type="radio" [value]="false" formControlName="isReplacementDay" />No
+              <input
+                type="radio"
+                [value]="true"
+                formControlName="isReplacementDay"
+              />Yes
+              <input
+                type="radio"
+                [value]="false"
+                formControlName="isReplacementDay"
+              />No
             </mat-radio-group>
           </div>
         </div>
@@ -108,9 +154,18 @@
             <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
               <mat-form-field appearance="outline">
                 <mat-label>RD Validity Term (month)</mat-label>
-                <input matInput type="number" class="numeric-input" formControlName="rd_validity_term"
-                  placeholder="RD Validity Term" />
-                <mat-error *ngIf="addCompanyForm.controls['rd_validity_term'].hasError('min')">
+                <input
+                  matInput
+                  type="number"
+                  class="numeric-input"
+                  formControlName="rd_validity_term"
+                  placeholder="RD Validity Term"
+                />
+                <mat-error
+                  *ngIf="
+                    addCompanyForm.controls['rd_validity_term'].hasError('min')
+                  "
+                >
                   Please enter positive number.
                 </mat-error>
               </mat-form-field>
@@ -125,34 +180,47 @@
           </div>
           <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
             <mat-radio-group mat-radio-group name="grpName">
-              <input type="radio" [value]="true" formControlName="isMinusAnnualLeave" />Yes
-              <input type="radio" [value]="false" formControlName="isMinusAnnualLeave" />No
+              <input
+                type="radio"
+                [value]="true"
+                formControlName="isMinusAnnualLeave"
+              />Yes
+              <input
+                type="radio"
+                [value]="false"
+                formControlName="isMinusAnnualLeave"
+              />No
             </mat-radio-group>
           </div>
         </div>
 
-
         <!-- leave standard -->
         <div class="lineDivider">
-
           <div class="leftTable" fxFlex="30" fxFlex.gt-md="20">
             <span>Leave Standard</span>
           </div>
           <div class="rightTable" fxFlex="70" fxFlex.gt-md="70">
-
-            @for(leaveStandard of getLeaveStandardsControls().controls; track leaveStandard.year; let i = $index){
+            @for(leaveStandard of getLeaveStandardsControls().controls; track
+            leaveStandard.year; let i = $index){
             <div formArrayName="leave_standard">
               <div [formGroupName]="i">
                 <div class="flex items-center">
                   <div class="form-field">
                     <input type="hidden" formControlName="year" />
-                    <div class="yearLabel"> {{ i + 1 }} year</div>
+                    <div class="yearLabel">{{ i + 1 }} year</div>
                   </div>
                   <div class="form-field mr-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Annual Leave</mat-label>
-                      <input matInput type="number" class="numeric-input" formControlName="annual_leave" />
-                      <mat-error *ngIf="leaveStandard.hasError('min', 'annual_leave')">
+                      <input
+                        matInput
+                        type="number"
+                        class="numeric-input"
+                        formControlName="annual_leave"
+                      />
+                      <mat-error
+                        *ngIf="leaveStandard.hasError('min', 'annual_leave')"
+                      >
                         Please enter positive number.
                       </mat-error>
                     </mat-form-field>
@@ -160,15 +228,25 @@
                   <div class="form-field mr-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Sick Leave</mat-label>
-                      <input matInput type="number" class="numeric-input" formControlName="sick_leave" />
-                      <mat-error *ngIf="leaveStandard.hasError('min', 'sickLeave')">
+                      <input
+                        matInput
+                        type="number"
+                        class="numeric-input"
+                        formControlName="sick_leave"
+                      />
+                      <mat-error
+                        *ngIf="leaveStandard.hasError('min', 'sickLeave')"
+                      >
                         Please enter positive number.
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div *ngIf="i <= 0" class="empty">
-                  </div>
-                  <div *ngIf="i > 0" class="clickBtn flex items-center-center" (click)="cancelItem(i)">
+                  <div *ngIf="i <= 0" class="empty"></div>
+                  <div
+                    *ngIf="i > 0"
+                    class="clickBtn flex items-center-center"
+                    (click)="cancelItem(i)"
+                  >
                     <mat-icon>remove</mat-icon>
                   </div>
                 </div>
@@ -176,8 +254,10 @@
             </div>
             }
 
-
-            <div class="addclickBtn grid place-items-center" (click)="addItem()">
+            <div
+              class="addclickBtn grid place-items-center"
+              (click)="addItem()"
+            >
               <mat-icon>add</mat-icon>
             </div>
           </div>
@@ -185,16 +265,21 @@
 
         <div fxLayout="row" fxLayoutAlign="center center" class="booterBtn">
           <div class="btnSection_1">
-            <button mat-raised-button class="tableBtn mr-4 " (click)="toBack()">Cancel</button>
-            <button mat-raised-button class="tableBtn" type="submit" color="primary">Request</button>
+            <button mat-raised-button class="tableBtn mr-4" (click)="toBack()">
+              Cancel
+            </button>
+            <button
+              mat-raised-button
+              class="tableBtn"
+              type="submit"
+              color="primary"
+            >
+              Request
+            </button>
           </div>
-          <div>
-
-          </div>
+          <div></div>
         </div>
-
       </div>
-
     </form>
   </div>
 </div>

@@ -11,24 +11,22 @@ import { CountriesService } from '../../../../services/countries/countries.servi
   standalone: true,
   imports: [CommonModule, MaterialsModule],
   templateUrl: './countries-add-dialog.component.html',
-  styleUrl: './countries-add-dialog.component.scss'
+  styleUrl: './countries-add-dialog.component.scss',
 })
 export class CountriesAddDialogComponent {
-
-  private fb = inject(FormBuilder)
-  private dialogService = inject(DialogService)
-  private countriesService = inject(CountriesService)
-  public dialogRef = inject(MatDialogRef<CountriesAddDialogComponent>)
+  private fb = inject(FormBuilder);
+  private dialogService = inject(DialogService);
+  private countriesService = inject(CountriesService);
+  public dialogRef = inject(MatDialogRef<CountriesAddDialogComponent>);
 
   displayedColumns: string[] = ['countryName', 'countryCode'];
   // form group
   countryForm: FormGroup = this.fb.group({
     countryName: ['', [Validators.required]],
     countryCode: ['', [Validators.required]],
-  });;
+  });
 
-  constructor(
-  ) { }
+  constructor() {}
 
   addCountry() {
     const formValue = this.countryForm.value;
@@ -36,7 +34,7 @@ export class CountriesAddDialogComponent {
     const countryData = {
       countryName: formValue.countryName,
       countryCode: formValue.countryCode,
-    }
+    };
 
     this.countriesService.addCountry(countryData).subscribe({
       next: (res: any) => {
@@ -45,18 +43,17 @@ export class CountriesAddDialogComponent {
           this.dialogService.openDialogPositive('Success add country.');
         }
       },
-      error: (error: any) => {
-        if (error.message == 'The country code is duplicated.') {
-          this.dialogRef.close();
-          this.dialogService.openDialogNegative('The country code is duplicated.');
-        }
-        else if (error.message == 'adding Country Error') {
+      error: (err: any) => {
+        if (err.error.message == 'The country code is duplicated.') {
+          //   this.dialogRef.close();
+          this.dialogService.openDialogNegative(
+            'The country code is duplicated.'
+          );
+        } else if (err.error.message == 'adding Country Error') {
           this.dialogRef.close();
           this.dialogService.openDialogNegative('An error has occured.');
         }
-      }
-    }
-    )
+      },
+    });
   }
-
 }
