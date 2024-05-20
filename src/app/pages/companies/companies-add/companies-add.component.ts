@@ -136,7 +136,7 @@ export class CompaniesAddComponent {
       rdValidityTerm: formValue.isReplacementDay
         ? formValue.rd_validity_term
         : 0,
-      leaveStandards: this.generateFutureLeaveStandards(
+      leave_standard: this.generateFutureLeaveStandards(
         leaveStandards,
         lastLeaveStandard
       ),
