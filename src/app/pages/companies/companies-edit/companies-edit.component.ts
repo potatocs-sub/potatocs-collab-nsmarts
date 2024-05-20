@@ -38,12 +38,12 @@ export class CompaniesEditComponent {
       }),
     ]),
     rollover: [false],
-    rollover_max_month: [0, [Validators.min(0)]],
-    rollover_max_day: [0, [Validators.min(0)]],
-    country_code: [''],
-    location: [''],
+    rollover_max_month: [1, [Validators.min(1)]],
+    rollover_max_day: [1, [Validators.min(1)]],
+    // country_code: [''],
+    // location: [''],
     isReplacementDay: [false],
-    rd_validity_term: [''],
+    rd_validity_term: [1, [Validators.min(1)]],
     annual_policy: ['byContract'],
     isMinusAnnualLeave: [false],
   });
@@ -62,6 +62,15 @@ export class CompaniesEditComponent {
       next: (res: any) => {
         // Patch the rest of the form
         this.editCompanyForm.patchValue(res.data);
+
+        this.editCompanyForm.value.rollover
+          ? ''
+          : this.editCompanyForm.get('rollover_max_month')?.setValue(1) ||
+            this.editCompanyForm.get('rollover_max_day')?.setValue(1);
+        this.editCompanyForm.value.isReplacementDay
+          ? ''
+          : this.editCompanyForm.get('rd_validity_term')?.setValue(1);
+
         this.patchLeaveStadard(res.data);
       },
       error: (error: any) => {

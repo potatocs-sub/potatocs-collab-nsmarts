@@ -43,12 +43,12 @@ export class CompaniesAddComponent {
       }),
     ]),
     rollover: [false],
-    rollover_max_month: [''],
-    rollover_max_day: [''],
-    country_code: [''],
-    location: [''],
+    rollover_max_month: [1, [Validators.min(1)]],
+    rollover_max_day: [1, [Validators.min(1)]],
+    // country_code: [''],
+    // location: [''],
     isReplacementDay: [false],
-    rd_validity_term: [''],
+    rd_validity_term: [1, [Validators.min(1)]],
     annual_policy: ['byContract'],
     isMinusAnnualLeave: [false],
   });
@@ -58,7 +58,7 @@ export class CompaniesAddComponent {
   ) as FormArray;
   year: any;
 
-  constructor() { }
+  constructor() {}
 
   //Cancel 버튼 클릭
   toBack(): void {
