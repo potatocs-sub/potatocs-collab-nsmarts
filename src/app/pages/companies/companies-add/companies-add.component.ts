@@ -1,13 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { MaterialsModule } from '../../../materials/materials.module';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogService } from '../../../stores/dialog/dialog.service';
 import { CompaniesService } from '../../../services/companies/companies.service';
@@ -53,7 +47,7 @@ export class CompaniesAddComponent {
     isMinusAnnualLeave: [false],
   });
 
-  leaveStandards: FormArray = this.addCompanyForm.get(
+  leave_standard: FormArray = this.addCompanyForm.get(
     'leave_standard'
   ) as FormArray;
   year: any;
@@ -67,7 +61,7 @@ export class CompaniesAddComponent {
 
   addItem() {
     const newLeaveStandard = this.createLeaveStandard();
-    this.leaveStandards.push(newLeaveStandard);
+    this.leave_standard.push(newLeaveStandard);
     this.updateYears();
   }
 
@@ -80,21 +74,21 @@ export class CompaniesAddComponent {
   }
 
   updateYears() {
-    this.leaveStandards.controls.forEach((group, index) => {
+    this.leave_standard.controls.forEach((group, index) => {
       group.get('year')?.setValue(index + 1);
     });
   }
 
   //Leave Standard에 - 버튼 클릭
   cancelItem(index: number) {
-    if (this.leaveStandards.length > index) {
-      this.leaveStandards.removeAt(index);
+    if (this.leave_standard.length > index) {
+      this.leave_standard.removeAt(index);
       this.updateYears();
     }
   }
 
   getLeaveStandardsControls(): any {
-    return this.leaveStandards;
+    return this.leave_standard;
   }
 
   addCompany(): void {
@@ -157,5 +151,17 @@ export class CompaniesAddComponent {
           sick_leave: lastLeaveStandard.sick_leave,
         }))
     );
+  }
+
+  //input type="number" 한글 안써지도록
+  @HostListener('input', ['$event'])
+  onInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+
+    if (inputElement.classList.contains('numeric-input')) {
+      const numericValue = inputValue.replace(/[^-\d]/g, '');
+      inputElement.value = numericValue;
+    }
   }
 }

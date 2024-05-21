@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../../../stores/dialog/dialog.service';
@@ -53,6 +53,7 @@ export class CompaniesEditComponent {
   ) as FormArray;
   year: any;
   companyId: string;
+
   constructor() {
     this.companyId = this.route.snapshot.paramMap.get('id')!;
   }
@@ -84,6 +85,12 @@ export class CompaniesEditComponent {
     this.router.navigate(['companies']);
   }
 
+  addItem() {
+    const newLeaveStandard = this.createLeaveStandard();
+    this.leave_standard.push(newLeaveStandard);
+    this.updateYears();
+  }
+
   createLeaveStandard(): FormGroup {
     return this.fb.group({
       year: 0,
@@ -98,16 +105,10 @@ export class CompaniesEditComponent {
     });
   }
 
-  addItem() {
-    const newLeaveStandard = this.createLeaveStandard();
-    this.leave_standard.push(newLeaveStandard);
-    this.updateYears();
-  }
-
   //Leave Standard에 - 버튼 클릭
-  cancelItem(i: number) {
+  cancelItem(index: number) {
     if (this.leave_standard) {
-      this.leave_standard.removeAt(i);
+      this.leave_standard.removeAt(index);
       this.updateYears();
     }
   }
@@ -178,8 +179,7 @@ export class CompaniesEditComponent {
       rdValidityTerm: formValue.isReplacementDay
         ? formValue.rd_validity_term
         : 0,
-      leave_standard: leaveStandards,
-      leaveStandards: this.generateFutureLeaveStandards(
+      leave_standard: this.generateFutureLeaveStandards(
         leaveStandards,
         lastLeaveStandard
       ),
@@ -200,5 +200,17 @@ export class CompaniesEditComponent {
           sick_lLeave: lastLeaveStandard.sick_leave,
         }))
     );
+  }
+
+  //input type="number" 한글 안써지도록
+  @HostListener('input', ['$event'])
+  onInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+
+    if (inputElement.classList.contains('numeric-input')) {
+      const numericValue = inputValue.replace(/[^-\d]/g, '');
+      inputElement.value = numericValue;
+    }
   }
 }

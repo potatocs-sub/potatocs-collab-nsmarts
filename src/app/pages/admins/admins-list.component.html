@@ -74,6 +74,7 @@
           <td mat-cell *matCellDef="let element">
             <button
               mat-flat-button
+              *ngIf="element.company_id"
               class="disconnectBtn"
               (click)="disconnectAdminCompanyDialog(element._id)"
             >
