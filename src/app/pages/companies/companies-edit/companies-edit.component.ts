@@ -30,13 +30,7 @@ export class CompaniesEditComponent {
 
   editCompanyForm = this.fb.group({
     company_name: ['', [Validators.required]],
-    leave_standard: this.fb.array([
-      this.fb.group({
-        year: [0],
-        annual_leave: [0, [Validators.min(0)]],
-        sick_leave: [0, [Validators.min(0)]],
-      }),
-    ]),
+    leave_standard: this.fb.array([]),
     rollover: [false],
     rollover_max_month: [1, [Validators.min(1)]],
     rollover_max_day: [1, [Validators.min(1)]],
@@ -118,7 +112,6 @@ export class CompaniesEditComponent {
   }
 
   patchLeaveStadard(data: any) {
-    console.log(data);
     // 기존 컨트롤 제거
     this.leave_standard.clear();
     // 새로운 컨트롤 추가
@@ -141,9 +134,7 @@ export class CompaniesEditComponent {
 
   editCompany(): void {
     if (this.editCompanyForm.valid) {
-      console.log(this.editCompanyForm.value);
       const companyData = this.prepareCompanyData();
-      console.log(companyData);
       this.companiesService.editCompany(this.companyId, companyData).subscribe({
         next: () => {
           this.router.navigate(['companies']);

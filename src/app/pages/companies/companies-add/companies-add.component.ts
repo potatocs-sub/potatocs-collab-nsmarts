@@ -29,13 +29,7 @@ export class CompaniesAddComponent {
 
   addCompanyForm = this.fb.group({
     company_name: ['', [Validators.required]],
-    leave_standard: this.fb.array([
-      this.fb.group({
-        year: [0],
-        annual_leave: [0, [Validators.min(0)]],
-        sick_leave: [0, [Validators.min(0)]],
-      }),
-    ]),
+    leave_standard: this.fb.array([]),
     rollover: [false],
     rollover_max_month: [1, [Validators.min(1)]],
     rollover_max_day: [1, [Validators.min(1)]],
