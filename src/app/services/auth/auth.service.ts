@@ -6,12 +6,12 @@ import { catchError, map, shareReplay, tap } from 'rxjs';
 import { Token } from '@angular/compiler';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = environment.apiUrl;
 
-  private http = inject(HttpClient)
+  private http = inject(HttpClient);
   private jwtHelper = inject(JwtHelperService);
 
   userInfo: WritableSignal<any | null> = signal<any | null>(null);
@@ -26,27 +26,27 @@ export class AuthService {
   }
 
   signIn(userData: any) {
-    return this.http.post<Token>(this.baseUrl + '/nsAuth/signIn', userData).pipe(
-      tap((res: any) => this.setToken(res.token)),
-      shareReplay(1), // 데이터 캐싱
-    );
+    return this.http
+      .post<Token>(this.baseUrl + '/nsAuth/signIn', userData)
+      .pipe(
+        tap((res: any) => this.setToken(res.token)),
+        shareReplay(1) // 데이터 캐싱
+      );
   }
 
   // get verification code + email
   getEcode(emailData: any) {
-    return this.http.post(this.baseUrl + '/auth/getEcode', emailData)
+    return this.http.post(this.baseUrl + '/auth/getEcode', emailData);
   }
 
   // set temp password + email
   getTempPw(emailData: any) {
-    return this.http.put(this.baseUrl + '/auth/getTempPw', emailData)
+    return this.http.put(this.baseUrl + '/auth/getTempPw', emailData);
   }
 
   logOut(): void {
     this.removeToken();
   }
-
-
 
   getToken(): string | null {
     return localStorage.getItem(environment.tokenName);
@@ -90,7 +90,7 @@ export class AuthService {
       const token = this.getToken();
       return !!token && !this.jwtHelper.isTokenExpired(token);
     } catch (error) {
-      console.error("Error checking authentication:", error);
+      console.error('Error checking authentication:', error);
       return false;
     }
   }
