@@ -116,13 +116,14 @@ export class ProfileComponent {
         this.profileService.updateProfile(patchData).subscribe({
           next: (res) => {
             this.refreshProfie();
-            this.router.navigate(['profile']);
             this.dialogService.openDialogPositive(
               'Successfully, Profile has been updated'
             );
+            this.resetPwdInit();
           },
           error: (error) => {
             console.log(error);
+            this.resetPwdInit();
           },
         });
       }
@@ -135,5 +136,13 @@ export class ProfileComponent {
     };
 
     this.authService.refreshToken(data).subscribe();
+  }
+
+  resetPwdInit() {
+    this.editProfileForm.reset({
+      name: this.editProfileForm.value.name,
+      password: null,
+      confirmPassword: null,
+    });
   }
 }
