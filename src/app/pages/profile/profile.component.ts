@@ -41,7 +41,6 @@ export class ProfileComponent {
   profileService = inject(ProfileService);
 
   constructor(private router: Router, private fb: FormBuilder) {
-    console.log(this.userInfoStore());
     this.editProfileForm = this.fb.group(
       {
         name: new FormControl('', [Validators.required]),
@@ -57,7 +56,6 @@ export class ProfileComponent {
   }
 
   fileChangeEvent(event: any) {
-    console.log('fileChangeEvent');
     if (event.target.files && event.target.files[0]) {
       if (
         event.target.files[0].name.toLowerCase().endsWith('.jpg') ||
@@ -132,6 +130,10 @@ export class ProfileComponent {
   }
 
   refreshProfie() {
-    this.authService.loadToken();
+    const data = {
+      email: this.userInfoStore().email,
+    };
+
+    this.authService.refreshToken(data).subscribe();
   }
 }

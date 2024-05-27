@@ -98,4 +98,15 @@ export class AuthService {
     const token = this.getToken();
     return token ? this.jwtHelper.decodeToken(token) : null;
   }
+
+  refreshToken(userData: any) {
+    return this.http
+      .post<Token>(this.baseUrl + '/nsAuth/refreshToken', userData)
+      .pipe(
+        tap((res: any) => {
+          this.setToken(res.token);
+        }),
+        shareReplay(1) // 데이터 캐싱
+      );
+  }
 }
