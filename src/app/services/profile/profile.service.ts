@@ -13,13 +13,11 @@ export class ProfileService {
   constructor(private http: HttpClient) {}
 
   changeProfileImg(imgae: File, id: string): Observable<HttpResMsg<any>> {
-    console.log(imgae);
-    console.log(id);
     const formData: FormData = new FormData();
     formData.append('file', imgae, imgae?.name);
     formData.append('id', id);
     return this.http.post<HttpResMsg<any>>(
-      this.baseUrl + '/nsmarts/profile',
+      this.baseUrl + '/nsmarts/profileImageChange',
       formData,
       {
         reportProgress: true,

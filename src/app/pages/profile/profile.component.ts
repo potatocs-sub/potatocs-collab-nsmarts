@@ -61,17 +61,14 @@ export class ProfileComponent {
         event.target.files[0].name.toLowerCase().endsWith('.jpg') ||
         event.target.files[0].name.toLowerCase().endsWith('.png')
       ) {
-        // Image resize and update
         this.changeProfileImage(event.target.files[0]);
       } else {
         this.dialogService.openDialogNegative(
           'Profile photos are only available for PNG and JPG.'
         );
-        // alert('프로필 사진은 PNG와 JPG만 가능합니다.');
       }
     } else {
       this.dialogService.openDialogNegative('Can not bring up pictures.');
-      // alert('사진을 불러올 수 없습니다.');
     }
   }
 
@@ -80,9 +77,7 @@ export class ProfileComponent {
       .changeProfileImg(imgFile, this.userInfoStore()._id)
       .subscribe({
         next: (res) => {
-          this.userInfoStore.update((prev) => {
-            return { ...prev, profileImgPath: res.data };
-          });
+          this.refreshProfie();
         },
         error: (error) => {
           console.log(error);
@@ -134,7 +129,6 @@ export class ProfileComponent {
     const data = {
       email: this.userInfoStore().email,
     };
-
     this.authService.refreshToken(data).subscribe();
   }
 
