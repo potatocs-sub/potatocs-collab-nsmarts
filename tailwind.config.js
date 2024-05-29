@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ["./src/**/*.{html,ts}"],
   important: true,
   purge: {
     enabled: true,
@@ -16,10 +14,6 @@ module.exports = {
       // logo
       logo: ["Alfa Slab One"],
     },
-    // colors: {  
-    //   main: "#20BF1A",
-    // },
   },
   plugins: [],
-}
-
+};

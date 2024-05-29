@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
-    canActivate: [isLoggedInGuard]
+    canActivate: [isLoggedInGuard],
   },
   {
     path: 'sign-in',
@@ -34,39 +34,32 @@ export const routes: Routes = [
     canActivate: [],
     children: [
       {
-        path: 'main',
-        loadChildren: () =>
-          import('./pages/main/routes').then((m) => m.MAIN_ROUTES),
-      },
-      {
         path: 'profile',
-        loadChildren: () => import('./pages/profile/routes').then(m => m.PROFILE_ROUTES),
+        loadChildren: () =>
+          import('./pages/profile/routes').then((m) => m.PROFILE_ROUTES),
       },
       {
         path: 'companies',
-        loadChildren: () => import('./pages/companies/routes').then(m => m.COMPANIES_ROUTES),
+        loadChildren: () =>
+          import('./pages/companies/routes').then((m) => m.COMPANIES_ROUTES),
       },
       {
         path: 'countries',
-        loadChildren: () => import('./pages/countries/routes').then(m => m.HOLIDAYS_ROUTES),
+        loadChildren: () =>
+          import('./pages/countries/routes').then((m) => m.HOLIDAYS_ROUTES),
       },
       {
         path: 'admins',
-        loadComponent: () => import('./pages/admins/admins-list.component').then(m => m.AdminsListComponent),
+        loadComponent: () =>
+          import('./pages/admins/admins-list.component').then(
+            (m) => m.AdminsListComponent
+          ),
       },
-      // {
-      //   path: '',
-      //   redirectTo: 'main',
-      //   pathMatch: 'full',
-      // },
     ],
   },
-  // 잘못된 URL을 사용했을때 메인으로 보냄
   {
     path: '**',
-    // redirectTo: 'welcome',
-    redirectTo: 'main',
+    redirectTo: 'countries',
     pathMatch: 'full',
   },
 ];
-
