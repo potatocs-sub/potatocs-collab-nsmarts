@@ -21,11 +21,11 @@ export class CountriesListComponent {
   countriesService = inject(CountriesService);
   dialogService = inject(DialogService);
   dialog = inject(MatDialog);
+
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // view table
+
   displayedColumns: string[] = ['countryName', 'countryCode', 'btns'];
-  // dataSource = ELEMENT_DATA;
 
   countryList: any = [];
   pageSize = 10;
@@ -77,7 +77,6 @@ export class CountriesListComponent {
   }
 
   addCountryHoliday(id: any, countryHoliday: any[]) {
-    console.log(id);
     const dialogRef = this.dialog.open(HolidaysAddDialogComponent, {
       data: {
         countryId: id,

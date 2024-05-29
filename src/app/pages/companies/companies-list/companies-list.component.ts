@@ -29,43 +29,24 @@ export class CompaniesListComponent {
     'rollover_max_day',
     'btns',
   ];
-  filterValues = {};
-  filterSelectObj: any = [];
   company_max_day: any = 0;
 
   pageSize = 10;
   resultsLength = 0;
   isLoadingResults = true;
-  isRateLimitReached = false;
+  isRollover = false;
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  myRank = window.location.pathname.split('/')[3];
-  managerName = '';
-
-  isRollover = false;
   constructor() {}
 
   ngAfterViewInit() {
-    // if (this.company_max_day != undefined) {
-    //   this.isRollover = true;
-    //   this.displayedColumns = ['code', 'name', 'rollover', 'rollover_max_month', 'rollover_max_day', 'btns'];
-    // }
     this.getCompanyList();
   }
 
   ngOnInit(): void {
-    // this.dataService.userCompanyProfile.pipe(takeUntil(this.unsubscribe$)).subscribe(
-    // 	(data: any) => {
-    // 		this.company_max_day = data.rollover_max_day
-    // 		if(this.company_max_day != undefined){
-    // 			this.isRollover = true;
-    // 			this.displayedColumns = ['code', 'name', 'rollover', 'rollover_max_month', 'rollover_max_day', 'btns'];
-    // 		}
-    // 		this.getMyEmployeeLists();
-    // })
     if (this.company_max_day != undefined) {
       this.isRollover = true;
       this.displayedColumns = [
@@ -96,23 +77,15 @@ export class CompaniesListComponent {
             .pipe(catchError(() => of(null)));
         }),
         map((res: any) => {
-          // Flip flag to show that loading has finished.
-          console.log(res);
           this.isLoadingResults = false;
           if (res === null) {
-            this.isRateLimitReached = true;
             return [];
           }
-          this.isRateLimitReached = false;
           this.resultsLength = res.totalCount;
           return res.foundCompanyList;
         })
       )
       .subscribe((data: any) => (this.dataSource = data));
-  }
-
-  backManagerList() {
-    this.router.navigate(['employee-mngmt/manager-list']);
   }
 
   applyFilter(event: Event) {
@@ -130,7 +103,7 @@ export class CompaniesListComponent {
     this.router.navigate(['companies/edit/' + id]);
   }
 
-  // 회사 삭제
+  // 회사 삭제 dialog
   deleteCompanyDialog(id: any) {
     this.dialogService
       .openDialogConfirm('Do you delete this company?')
@@ -145,8 +118,8 @@ export class CompaniesListComponent {
       });
   }
 
+  // 회사 삭제
   deleteCompany(id: any) {
-    // 회사 삭제
     this.companiesService.deleteCompany(id).subscribe((data: any) => {
       if (data.message == 'delete company') {
         this.dialogService.openDialogPositive(

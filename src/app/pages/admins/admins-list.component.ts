@@ -1,6 +1,6 @@
 import { CompanyConnectDialogComponent } from './../../components/dialogs/company-connect-dialog/company-connect-dialog.component';
 import { Component, ViewChild, inject } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminsService } from '../../services/admins/admins.service';
 import { MatSort } from '@angular/material/sort';
@@ -22,18 +22,14 @@ export class AdminsListComponent {
 
   adminList = new MatTableDataSource();
 
-  managerName = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  isRollover = false;
+  @ViewChild(MatSort) sort!: MatSort;
 
   pageSize = 10;
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-
   data: any = [];
-
-  @ViewChild(MatSort) sort!: MatSort;
 
   adminsService = inject(AdminsService);
   dialog = inject(MatDialog);
@@ -107,7 +103,6 @@ export class AdminsListComponent {
     };
     this.adminsService.disconnectAdminCompany(admin).subscribe(
       (data: any) => {
-        // console.log(data);
         this.dialogService.openDialogPositive(
           'Successfully disconnect company and admin'
         );

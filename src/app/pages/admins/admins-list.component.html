@@ -1,106 +1,72 @@
-<div class="mainContentContainer">
-  @if (isLoadingResults || isRateLimitReached) {
-  <div class="example-loading-shade">
-    @if (isLoadingResults) {
-    <mat-spinner></mat-spinner>
-    } @if (isRateLimitReached) {
-    <div class="example-rate-limit-reached">
-      API rate limit has been reached. It will be reset in one minute.
-    </div>
-    }
-  </div>
-  }
-  <div class="mainContent">
-    <div fxLayout="row">
-      <!-- <div class="mainTitle" *ngIf="myRank == 'manager-list' && !managerName">Manager List</div>
-    <div class="mainTitle" *ngIf="myRank == 'manager-list' && managerName">Manager {{ managerName }}'s List
-      <button mat-flat-button color="primary" class="titleBtn" (click)="getMyEmployeeLists()">
-        back
-      </button>
-    </div> -->
-      <div class="mainTitle">Admin List</div>
-    </div>
+<div class="m-10">
+  <div class="text-[22px] font-bold mb-4">Admin List</div>
 
-    <div class="historyTableBox">
-      <table
-        mat-table
-        [dataSource]="adminList"
-        class="mat-elevation-z8 historyTable"
-        matSort
-        matSortActive="createdAt"
-        matSortDisableClear
-        matSortDirection="desc"
-      >
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
+  <div>
+    <table
+      mat-table
+      [dataSource]="adminList"
+      matSort
+      matSortActive="createdAt"
+      matSortDisableClear
+      matSortDirection="desc"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
 
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
-          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-        </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
 
-        <ng-container matColumnDef="company">
-          <th mat-header-cell *matHeaderCellDef>Company</th>
-          <td mat-cell *matCellDef="let element">
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Company</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-stroked-button
+            (click)="connectCompany(element._id)"
+            *ngIf="element.company_id; else noCompany"
+          >
+            {{ element.company_id?.company_name }}
+          </button>
+          <ng-template #noCompany>
             <button
-              mat-raised-button
-              class="editCompanyBtn"
+              mat-stroked-button
+              color="primary"
               (click)="connectCompany(element._id)"
-              *ngIf="element.company_id; else noCompany"
             >
-              {{ element.company_id?.company_name }}
+              No Company
             </button>
-            <ng-template #noCompany>
-              <button
-                mat-raised-button
-                class="deleteBtn"
-                (click)="connectCompany(element._id)"
-              >
-                NO COMPANY
-              </button>
-            </ng-template>
-            <!-- <span 
-                          class="notCompany"
-                          *ngIf="!element.company_id"
-                          >
-                          NO COMPANY
-                      </span> -->
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="disconnect">
-          <th mat-header-cell *matHeaderCellDef>Disconnect</th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              mat-flat-button
-              *ngIf="element.company_id"
-              class="disconnectBtn"
-              (click)="disconnectAdminCompanyDialog(element._id)"
-            >
-              disconnect
-            </button>
-          </td>
-        </ng-container>
+          </ng-template>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="disconnect">
+        <th mat-header-cell *matHeaderCellDef class="font-bold">Disconnect</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-stroked-button
+            color="accent"
+            *ngIf="element.company_id"
+            (click)="disconnectAdminCompanyDialog(element._id)"
+          >
+            Disconnect
+          </button>
+        </td>
+      </ng-container>
 
-        <tr
-          mat-header-row
-          *matHeaderRowDef="displayedColumns; sticky: true"
-        ></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="9999">No data</td>
-        </tr>
-      </table>
-      <mat-paginator
-        [length]="resultsLength"
-        [pageSize]="pageSize"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        aria-label="Select page"
-      >
-      </mat-paginator>
-    </div>
-    <!-- </div>
-  </div> -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell m-5" colspan="9999">No data</td>
+      </tr>
+    </table>
+    <mat-paginator
+      [length]="resultsLength"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page"
+    >
+    </mat-paginator>
   </div>
 </div>
