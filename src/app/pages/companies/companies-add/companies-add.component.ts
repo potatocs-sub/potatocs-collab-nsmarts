@@ -19,22 +19,12 @@ export class CompaniesAddComponent {
   dialogService = inject(DialogService);
   companiesService = inject(CompaniesService);
 
-  days: any;
-  start_date_sec: any;
-  end_date_sec: any;
-  millisecondsPerDay: any;
-  diff: any;
-  weeks: any;
-  leaveDays: any;
-
   addCompanyForm = this.fb.group({
     company_name: ['', [Validators.required]],
     leave_standard: this.fb.array([]),
     rollover: [false],
     rollover_max_month: [1, [Validators.min(1)]],
     rollover_max_day: [1, [Validators.min(1)]],
-    // country_code: [''],
-    // location: [''],
     isReplacementDay: [false],
     rd_validity_term: [1, [Validators.min(1)]],
     annual_policy: ['byContract'],
@@ -46,7 +36,9 @@ export class CompaniesAddComponent {
   ) as FormArray;
   year: any;
 
-  constructor() {}
+  constructor() {
+    this.addItem();
+  }
 
   //Cancel 버튼 클릭
   toBack(): void {
