@@ -20,7 +20,7 @@ export class CountriesAddDialogComponent {
   public dialogRef = inject(MatDialogRef<CountriesAddDialogComponent>);
 
   displayedColumns: string[] = ['countryName', 'countryCode'];
-  // form group
+
   countryForm: FormGroup = this.fb.group({
     countryName: ['', [Validators.required]],
     countryCode: ['', [Validators.required]],
@@ -45,7 +45,6 @@ export class CountriesAddDialogComponent {
       },
       error: (err: any) => {
         if (err.error.message == 'The country code is duplicated.') {
-          //   this.dialogRef.close();
           this.dialogService.openDialogNegative(
             'The country code is duplicated.'
           );

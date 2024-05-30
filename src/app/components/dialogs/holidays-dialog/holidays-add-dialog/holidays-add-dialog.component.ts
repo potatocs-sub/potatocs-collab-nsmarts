@@ -46,7 +46,6 @@ export class HolidaysAddDialogComponent {
 
   getCountryHolidayList() {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    console.log(this.data);
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -64,7 +63,6 @@ export class HolidaysAddDialogComponent {
         }),
         map((res: any) => {
           // Flip flag to show that loading has finished.
-          console.log(res);
           this.isLoadingResults = false;
           if (res === null) {
             this.isRateLimitReached = true;
@@ -85,7 +83,6 @@ export class HolidaysAddDialogComponent {
     };
     this.holidaysService.addHoliday(formData).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.getCountryHolidayList();
         this.dialogService.openDialogPositive('Success add country holiday.');
       },
@@ -114,7 +111,6 @@ export class HolidaysAddDialogComponent {
   deleteCountryHoliday(id: string) {
     this.holidaysService.deleteHoliday(id, this.data.countryId).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.getCountryHolidayList();
         this.dialogService.openDialogPositive(res.message);
       },
