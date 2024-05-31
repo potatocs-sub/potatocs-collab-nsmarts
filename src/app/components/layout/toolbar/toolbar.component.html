@@ -9,10 +9,17 @@
   <div>
     <button mat-button [matMenuTriggerFor]="profile">
       <div class="flex flex-row justify-center items-center gap-3">
-        <img
-          class="w-[35px] h-[35px] bg-white rounded-full"
-          [src]="userInfo().profile_img"
-        />
+        <ng-container *ngIf="userInfo().profile_img; else iconTemplate">
+          <img
+            class="w-[35px] h-[35px] bg-white rounded-full"
+            [src]="userInfo().profile_img"
+          />
+        </ng-container>
+        <ng-template #iconTemplate>
+          <mat-icon class="w-[35px] h-[35px] text-[35px] text-white"
+            >account_circle</mat-icon
+          >
+        </ng-template>
         <span class="text-base text-white">{{ userInfo()?.name }}</span>
       </div>
     </button>
