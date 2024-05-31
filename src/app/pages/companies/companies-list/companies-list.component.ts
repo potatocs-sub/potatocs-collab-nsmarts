@@ -106,7 +106,7 @@ export class CompaniesListComponent {
   // 회사 삭제 dialog
   deleteCompanyDialog(id: any) {
     this.dialogService
-      .openDialogConfirm('Do you delete this company?')
+      .openDialogConfirm('Do you want to delete this company?')
       .subscribe({
         next: (res: any) => {
           if (res) this.deleteCompany(id);
@@ -122,9 +122,7 @@ export class CompaniesListComponent {
   deleteCompany(id: any) {
     this.companiesService.deleteCompany(id).subscribe((data: any) => {
       if (data.message == 'delete company') {
-        this.dialogService.openDialogPositive(
-          'Successfully, the company has been delete.'
-        );
+        this.dialogService.openDialogPositive('Successfully deleted company.');
         this.getCompanyList();
       }
     });

@@ -20,7 +20,7 @@ export const isLoggedInGuard: CanActivateFn = (
 
   if (isLoggedIn) {
     if (['sign-in', 'find-pw', 'sign-up'].includes(routePath)) {
-      router.navigate(['main']);
+      router.navigate(['companies']);
     }
     return true;
   }
@@ -29,7 +29,7 @@ export const isLoggedInGuard: CanActivateFn = (
     return true;
   }
 
-  if (routePath === '' && state.url === '/main') {
+  if (routePath === '') {
     router.navigate(['sign-in']);
     return true;
   }

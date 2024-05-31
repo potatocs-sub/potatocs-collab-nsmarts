@@ -84,16 +84,14 @@ export class CompaniesAddComponent {
       this.companiesService.addCompany(companyData).subscribe({
         next: () => {
           this.router.navigate(['companies']);
-          this.dialogService.openDialogPositive(
-            'Successfully, the company has been added.'
-          );
+          this.dialogService.openDialogPositive('Successfully added company.');
         },
         error: (err) => {
           console.error(err);
           const errorMessage =
             err.status === 409
-              ? 'Company name is duplicated.'
-              : 'An error occurred while adding company.';
+              ? 'The company name is duplicated.'
+              : 'An error has occured.';
           this.dialogService.openDialogNegative(errorMessage);
         },
       });

@@ -40,7 +40,7 @@ export class CountriesAddDialogComponent {
       next: (res: any) => {
         if (res.message == 'Success add country') {
           this.dialogRef.close();
-          this.dialogService.openDialogPositive('Success add country.');
+          this.dialogService.openDialogPositive('Successfully added country.');
         }
       },
       error: (err: any) => {

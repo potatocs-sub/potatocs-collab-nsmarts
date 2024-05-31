@@ -88,7 +88,7 @@ export class CountriesListComponent {
   // 나라 삭제
   deleteCountryDialog(id: any) {
     this.dialogService
-      .openDialogConfirm('Do you delete this country?')
+      .openDialogConfirm('Do you want to delete this country?')
       .subscribe({
         next: (res: any) => {
           if (res) this.deleteCountry(id);
@@ -104,7 +104,7 @@ export class CountriesListComponent {
     this.countriesService.deleteCountry(id).subscribe({
       next: (res: any) => {
         this.getCountryList();
-        this.dialogService.openDialogPositive(res.message);
+        this.dialogService.openDialogPositive('Successfully deleted country.');
       },
       error: (error) => {},
     });

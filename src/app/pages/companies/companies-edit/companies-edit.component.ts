@@ -128,16 +128,14 @@ export class CompaniesEditComponent {
       this.companiesService.editCompany(this.companyId, companyData).subscribe({
         next: () => {
           this.router.navigate(['companies']);
-          this.dialogService.openDialogPositive(
-            'Successfully, the company has been edited.'
-          );
+          this.dialogService.openDialogPositive('Successfully edited company.');
         },
         error: (err: any) => {
           console.error(err);
           const errorMessage =
             err.status === 409
-              ? 'Company name is duplicated.'
-              : 'An error occurred while edited company.';
+              ? 'The company name is duplicated.'
+              : 'An error has occured.';
           this.dialogService.openDialogNegative(errorMessage);
         },
       });

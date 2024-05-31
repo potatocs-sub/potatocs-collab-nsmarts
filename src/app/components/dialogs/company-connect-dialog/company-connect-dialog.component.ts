@@ -92,7 +92,7 @@ export class CompanyConnectDialogComponent {
             this.adminsService.connectAdminCompany(company).subscribe({
               next: (data) => {
                 this.dialogsService.openDialogPositive(
-                  'Successfully connect company and admin'
+                  'Successfully connected company and admin.'
                 );
                 this.dialogRef.close();
               },

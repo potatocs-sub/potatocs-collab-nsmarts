@@ -87,7 +87,7 @@ export class ProfileComponent {
               'The file size is too large. Must be less than 15M.'
             );
           } else {
-            this.dialogService.openDialogNegative('change profile Error');
+            this.dialogService.openDialogNegative('An error has occured.');
           }
         },
       });
@@ -112,7 +112,7 @@ export class ProfileComponent {
           next: (res) => {
             this.refreshProfie();
             this.dialogService.openDialogPositive(
-              'Successfully, Profile has been updated'
+              'Successfully updated profile.'
             );
             this.resetPwdInit();
           },

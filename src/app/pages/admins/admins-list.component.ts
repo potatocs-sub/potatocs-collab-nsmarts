@@ -84,7 +84,7 @@ export class AdminsListComponent {
 
   disconnectAdminCompanyDialog(id: any) {
     this.dialogService
-      .openDialogConfirm('Do you disconnect this company and admin?')
+      .openDialogConfirm('Do you want to disconnect this company and admin?')
       .subscribe({
         next: (res: any) => {
           if (res) this.disconnectAdminCompany(id);
@@ -104,7 +104,7 @@ export class AdminsListComponent {
     this.adminsService.disconnectAdminCompany(admin).subscribe(
       (data: any) => {
         this.dialogService.openDialogPositive(
-          'Successfully disconnect company and admin'
+          'Successfully disconnected company and admin.'
         );
         this.getAdminList();
       },

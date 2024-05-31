@@ -84,7 +84,9 @@ export class HolidaysAddDialogComponent {
     this.holidaysService.addHoliday(formData).subscribe({
       next: (res: any) => {
         this.getCountryHolidayList();
-        this.dialogService.openDialogPositive('Success add country holiday.');
+        this.dialogService.openDialogPositive(
+          'Successfully added country holiday.'
+        );
       },
       error: (err) => {
         console.log(err);
@@ -96,7 +98,7 @@ export class HolidaysAddDialogComponent {
   // 나라 삭제
   deleteCountryHolidayDialog(id: any) {
     this.dialogService
-      .openDialogConfirm('Do you delete this country holiday?')
+      .openDialogConfirm('Do you want to delete this country holiday?')
       .subscribe({
         next: (res: any) => {
           if (res) this.deleteCountryHoliday(id);
