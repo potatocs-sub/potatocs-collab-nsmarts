@@ -3,7 +3,7 @@
 
   <form [formGroup]="countryForm" novalidate>
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[30%]"
@@ -11,12 +11,18 @@
         <span>Country Name</span>
       </div>
       <mat-form-field appearance="outline" class="flex-1 pt-[21px] pl-2">
+        <mat-label>Country Name</mat-label>
         <input matInput type="text" formControlName="countryName" />
+        <mat-error
+          *ngIf="countryForm.controls['countryName'].hasError('required')"
+        >
+          Please enter country name.
+        </mat-error>
       </mat-form-field>
     </div>
 
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[30%]"
@@ -24,7 +30,13 @@
         <span>Country Code</span>
       </div>
       <mat-form-field appearance="outline" class="flex-1 pt-[21px] pl-2">
+        <mat-label>Country Code</mat-label>
         <input matInput type="text" formControlName="countryCode" />
+        <mat-error
+          *ngIf="countryForm.controls['countryCode'].hasError('required')"
+        >
+          Please enter country code.
+        </mat-error>
       </mat-form-field>
     </div>
 

@@ -4,7 +4,7 @@
   <form [formGroup]="addCompanyForm" (ngSubmit)="addCompany()">
     <!-- company name -->
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -26,7 +26,7 @@
 
     <!-- Annual Policy -->
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -43,7 +43,7 @@
 
     <!-- rollover -->
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -61,7 +61,7 @@
     <div *ngIf="addCompanyForm.get('rollover')?.value === true">
       <!-- rollover max month -->
       <div
-        class="flex flex-row justify-center border-b border-solid border-black"
+        class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
       >
         <div
           class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -80,6 +80,15 @@
             />
             <mat-error
               *ngIf="
+                addCompanyForm.controls['rollover_max_month'].hasError(
+                  'required'
+                )
+              "
+            >
+              Enter rollover max month.
+            </mat-error>
+            <mat-error
+              *ngIf="
                 addCompanyForm.controls['rollover_max_month'].hasError('min')
               "
             >
@@ -91,7 +100,7 @@
 
       <!-- rollover max leave days -->
       <div
-        class="flex flex-row justify-center border-b border-solid border-black"
+        class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
       >
         <div
           class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -110,6 +119,13 @@
             />
             <mat-error
               *ngIf="
+                addCompanyForm.controls['rollover_max_day'].hasError('required')
+              "
+            >
+              Enter rollover max days.
+            </mat-error>
+            <mat-error
+              *ngIf="
                 addCompanyForm.controls['rollover_max_day'].hasError('min')
               "
             >
@@ -122,7 +138,7 @@
 
     <!-- Replacement Day -->
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -139,7 +155,7 @@
     <!-- RD Validity Day -->
     <div *ngIf="addCompanyForm.get('isReplacementDay')?.value == true">
       <div
-        class="flex flex-row justify-center border-b border-solid border-black"
+        class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
       >
         <div
           class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -158,6 +174,13 @@
             />
             <mat-error
               *ngIf="
+                addCompanyForm.controls['rd_validity_term'].hasError('required')
+              "
+            >
+              Enter RD validity term.
+            </mat-error>
+            <mat-error
+              *ngIf="
                 addCompanyForm.controls['rd_validity_term'].hasError('min')
               "
             >
@@ -170,7 +193,7 @@
 
     <!-- Advance Annual Leave -->
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -187,7 +210,7 @@
 
     <!-- leave standard -->
     <div
-      class="flex flex-row justify-center border-b border-solid border-black"
+      class="flex flex-row justify-center border-b border-solid border-[#0000001f]"
     >
       <div
         class="rounded-[5px] m-1 p-[16px] text-white font-bold bg-[#00154f] flex-1 max-w-[20%]"
@@ -214,6 +237,11 @@
                     formControlName="annual_leave"
                   />
                   <mat-error
+                    *ngIf="leaveStandard.hasError('required', 'annual_leave')"
+                  >
+                    Please enter annual leave.
+                  </mat-error>
+                  <mat-error
                     *ngIf="leaveStandard.hasError('min', 'annual_leave')"
                   >
                     Please enter positive number.
@@ -230,6 +258,11 @@
                     formControlName="sick_leave"
                   />
                   <mat-error
+                    *ngIf="leaveStandard.hasError('required', 'sick_leave')"
+                  >
+                    Please enter sick leave.
+                  </mat-error>
+                  <mat-error
                     *ngIf="leaveStandard.hasError('min', 'sick_leave')"
                   >
                     Please enter positive number.
@@ -242,7 +275,7 @@
                 class="mb-[21px] cursor-pointer"
                 (click)="cancelItem(i)"
               >
-                <mat-icon>remove</mat-icon>
+                <mat-icon class="text-[#00154fd6]">remove</mat-icon>
               </div>
             </div>
           </div>
@@ -253,7 +286,7 @@
           class="flex justify-center mb-5 cursor-pointer"
           (click)="addItem()"
         >
-          <mat-icon>add</mat-icon>
+          <mat-icon class="text-[#00154fd6]">add</mat-icon>
         </div>
       </div>
     </div>

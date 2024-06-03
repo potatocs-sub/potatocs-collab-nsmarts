@@ -40,6 +40,7 @@ export class SignInComponent {
       },
       error: (error: any) => {
         console.log(error);
+        this.dialogService.openDialogNegative('The password is incorrect.');
       },
     });
   }

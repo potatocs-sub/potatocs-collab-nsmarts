@@ -11,7 +11,15 @@
             <span>Name</span>
           </div>
           <mat-form-field appearance="outline" class="w-[200px]">
+            <mat-label>Name</mat-label>
             <input matInput type="text" formControlName="holidayName" />
+            <mat-error
+              *ngIf="
+                countryHolidayForm.controls['holidayName'].hasError('required')
+              "
+            >
+              Please enter holiday name.
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -23,6 +31,7 @@
           </div>
           <span>
             <mat-form-field appearance="outline" class="w-[200px]">
+              <mat-label>Date</mat-label>
               <input
                 matInput
                 [matDatepicker]="picker1"
@@ -34,6 +43,15 @@
                 [for]="picker1"
               ></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
+              <mat-error
+                *ngIf="
+                  countryHolidayForm.controls['holidayDate'].hasError(
+                    'required'
+                  )
+                "
+              >
+                Please enter holiday date.
+              </mat-error>
             </mat-form-field>
           </span>
         </div>

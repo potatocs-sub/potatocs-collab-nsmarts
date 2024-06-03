@@ -24,10 +24,10 @@ export class CompaniesEditComponent {
     company_name: ['', [Validators.required]],
     leave_standard: this.fb.array([]),
     rollover: [false],
-    rollover_max_month: [1, [Validators.min(1)]],
-    rollover_max_day: [1, [Validators.min(1)]],
+    rollover_max_month: [1, [Validators.required, Validators.min(1)]],
+    rollover_max_day: [1, [Validators.required, Validators.min(1)]],
     isReplacementDay: [false],
-    rd_validity_term: [1, [Validators.min(1)]],
+    rd_validity_term: [1, [Validators.required, Validators.min(1)]],
     annual_policy: ['byContract'],
     isMinusAnnualLeave: [false],
   });
@@ -78,8 +78,8 @@ export class CompaniesEditComponent {
   createLeaveStandard(): FormGroup {
     return this.fb.group({
       year: 0,
-      annual_leave: [0, [Validators.min(0)]],
-      sick_leave: [0, [Validators.min(0)]],
+      annual_leave: [0, [Validators.required, Validators.min(0)]],
+      sick_leave: [0, [Validators.required, Validators.min(0)]],
     });
   }
 
@@ -117,8 +117,11 @@ export class CompaniesEditComponent {
   getLeaveStandard(data: any): FormGroup {
     return this.fb.group({
       year: data.year,
-      annual_leave: [data.annual_leave, [Validators.min(0)]],
-      sick_leave: [data.sick_leave, [Validators.min(0)]],
+      annual_leave: [
+        data.annual_leave,
+        [Validators.required, Validators.min(0)],
+      ],
+      sick_leave: [data.sick_leave, [Validators.required, Validators.min(0)]],
     });
   }
 
