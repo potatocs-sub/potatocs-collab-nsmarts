@@ -7,15 +7,15 @@
 
       <div
         *ngIf="!isShowed; else emailSentNoti"
-        class="flex flex-col items-center"
+        class="flex flex-col items-center gap-1"
       >
         <div>
           <mat-card-title class="text-[#373737]"
-            >Please enter your email.</mat-card-title
+            >Please enter your email</mat-card-title
           >
         </div>
         <div class="text-[#aaaaaa] text-[14px]">
-          Verification code will be sent to you via the email.
+          The verification code will be emailed to you
         </div>
       </div>
 
@@ -37,13 +37,13 @@
       <form
         #emailForm="ngForm"
         (ngSubmit)="emailForm.form.valid && getEcode()"
-        class="flex flex-col items-center mx-10 mt-10 mb-5"
+        class="flex flex-col items-center m-10"
       >
         <mat-form-field>
+          <mat-label>Email</mat-label>
           <input
             matInput
             type="text"
-            placeholder="example@email.com"
             [(ngModel)]="emailFormData.email"
             name="email"
             spellcheck="false"
@@ -88,5 +88,11 @@
         </div>
       </form>
     </mat-card-content>
+    <div
+      [routerLink]="['/sign-in']"
+      class="flex justify-center cursor-pointer text-[#00154fd6] font-bold mb-5"
+    >
+      Back to login
+    </div>
   </mat-card>
 </div>

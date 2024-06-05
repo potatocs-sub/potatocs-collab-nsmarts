@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { MaterialsModule } from '../../../materials/materials.module';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { DialogService } from '../../../stores/dialog/dialog.service';
 @Component({
   selector: 'app-find-pw',
   standalone: true,
-  imports: [MaterialsModule, CommonModule],
+  imports: [MaterialsModule, CommonModule, RouterLink],
   templateUrl: './find-pw.component.html',
   styleUrl: './find-pw.component.scss',
 })
