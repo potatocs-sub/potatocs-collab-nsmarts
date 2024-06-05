@@ -11,10 +11,12 @@ export const routes: Routes = [
   },
   {
     path: 'sign-in',
+    canActivate: [isLoggedInGuard],
     component: SignInComponent,
   },
   {
     path: 'sign-up',
+    canActivate: [isLoggedInGuard],
     loadComponent: () =>
       import('./pages/auth/sign-up/sign-up.component').then(
         (m) => m.SignUpComponent
@@ -22,6 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'find-pw',
+    canActivate: [isLoggedInGuard],
     loadComponent: () =>
       import(`./pages/auth/find-pw/find-pw.component`).then(
         (m) => m.FindPwComponent
@@ -30,7 +33,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [],
+    canActivate: [isLoggedInGuard],
     children: [
       {
         path: 'profile',
