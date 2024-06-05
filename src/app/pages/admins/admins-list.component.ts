@@ -79,7 +79,12 @@ export class AdminsListComponent {
           return res.data;
         })
       )
-      .subscribe((data: any) => (this.adminList = data));
+      .subscribe((data: any) => (this.adminList.data = data));
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.adminList.filter = filterValue.trim().toLowerCase();
   }
 
   disconnectAdminCompanyDialog(id: any) {

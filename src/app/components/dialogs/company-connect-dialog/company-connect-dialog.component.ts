@@ -37,7 +37,7 @@ export class CompanyConnectDialogComponent {
   public dialogRef = inject(MatDialogRef<CompanyConnectDialogComponent>);
   public data = inject(MAT_DIALOG_DATA);
 
-  pageSize = 10;
+  pageSize = 5;
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -74,7 +74,12 @@ export class CompanyConnectDialogComponent {
           return res.foundCompanyList;
         })
       )
-      .subscribe((data: any) => (this.companies = data));
+      .subscribe((data: any) => (this.companies.data = data));
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.companies.filter = filterValue.trim().toLowerCase();
   }
 
   connectCompanyAdmin(id: any) {

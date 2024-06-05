@@ -9,6 +9,7 @@ import { DialogService } from '../../../stores/dialog/dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CountriesAddDialogComponent } from '../../../components/dialogs/countries-dialog/countries-add-dialog/countries-add-dialog.component';
 import { HolidaysAddDialogComponent } from '../../../components/dialogs/holidays-dialog/holidays-add-dialog/holidays-add-dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-countries-list',
@@ -27,7 +28,7 @@ export class CountriesListComponent {
 
   displayedColumns: string[] = ['countryName', 'countryCode', 'btns'];
 
-  countryList: any = [];
+  countryList = new MatTableDataSource();
   pageSize = 10;
   resultsLength = 0;
   isLoadingResults = true;
@@ -66,7 +67,12 @@ export class CountriesListComponent {
           return res.data;
         })
       )
-      .subscribe((data: any) => (this.countryList = data));
+      .subscribe((data: any) => (this.countryList.data = data));
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.countryList.filter = filterValue.trim().toLowerCase();
   }
 
   openAddCountry() {

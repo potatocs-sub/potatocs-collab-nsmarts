@@ -85,12 +85,16 @@ export class CompaniesListComponent {
           return res.foundCompanyList;
         })
       )
-      .subscribe((data: any) => (this.dataSource = data));
+      .subscribe((data: any) => (this.dataSource.data = data));
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   // 회사 추가
