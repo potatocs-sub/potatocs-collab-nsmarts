@@ -75,3 +75,8 @@ body {
 .mat-mdc-table thead {
   background: none !important;
 }
+
+// dialog scroll
+.cdk-overlay-pane.mat-mdc-dialog-panel {
+  overflow-y: auto;
+}

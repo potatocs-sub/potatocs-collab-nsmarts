@@ -19,12 +19,23 @@
 }
 
 .sidenav-items {
-  overflow-y: auto;
+  //   overflow-y: auto;
+  //   -ms-overflow-style: none;
+  //   /* IE and Edge */
+  //   scrollbar-width: none !important;
+  //   /* Firefox */
+  //   padding-top: 1.5rem;
+
+  position: absolute;
+  width: 100%;
+  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  // overflow: auto;
   -ms-overflow-style: none;
   /* IE and Edge */
-  scrollbar-width: none !important;
+  scrollbar-width: none;
   /* Firefox */
-  padding-top: 1.5rem;
 }
 
 .sidenav-items::-webkit-scrollbar {
