@@ -8,6 +8,7 @@ import { DialogService } from '../../../stores/dialog/dialog.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { catchError, map, merge, of, startWith, switchMap } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-companies-list',
@@ -20,6 +21,7 @@ export class CompaniesListComponent {
   public dialogService = inject(DialogService);
   router = inject(Router);
   companiesService = inject(CompaniesService);
+  fb = inject(FormBuilder);
 
   displayedColumns: string[] = [
     'code',
@@ -36,11 +38,16 @@ export class CompaniesListComponent {
   isLoadingResults = true;
   isRollover = false;
   dataSource = new MatTableDataSource();
+  searchForm: FormGroup;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor() {}
+  constructor() {
+    this.searchForm = this.fb.group({
+      nameFormControl: new FormControl(''),
+    });
+  }
 
   ngAfterViewInit() {
     this.getCompanyList();
@@ -69,6 +76,7 @@ export class CompaniesListComponent {
           this.isLoadingResults = true;
           return this.companiesService
             .queryCompanies(
+              this.searchForm.value.nameFormControl,
               this.sort.active,
               this.sort.direction,
               this.paginator.pageIndex,

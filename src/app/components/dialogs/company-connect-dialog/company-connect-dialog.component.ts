@@ -9,6 +9,7 @@ import { CompaniesService } from '../../../services/companies/companies.service'
 import { MaterialsModule } from '../../../materials/materials.module';
 import { CommonModule } from '@angular/common';
 import { AdminsService } from '../../../services/admins/admins.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-company-connect-dialog',
@@ -33,6 +34,7 @@ export class CompanyConnectDialogComponent {
   private companiesService = inject(CompaniesService);
   private dialogsService = inject(DialogService);
   private adminsService = inject(AdminsService);
+  fb = inject(FormBuilder);
 
   public dialogRef = inject(MatDialogRef<CompanyConnectDialogComponent>);
   public data = inject(MAT_DIALOG_DATA);
@@ -41,6 +43,13 @@ export class CompanyConnectDialogComponent {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
+  searchForm: FormGroup;
+
+  constructor() {
+    this.searchForm = this.fb.group({
+      nameFormControl: new FormControl(''),
+    });
+  }
 
   ngAfterViewInit() {
     this.getCompanyList();
@@ -55,6 +64,7 @@ export class CompanyConnectDialogComponent {
           this.isLoadingResults = true;
           return this.companiesService
             .queryCompanies(
+              this.searchForm.value.nameFormControl,
               this.sort.active,
               this.sort.direction,
               this.paginator.pageIndex,
