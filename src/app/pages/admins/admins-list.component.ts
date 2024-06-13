@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialsModule } from '../../materials/materials.module';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from '../../stores/dialog/dialog.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-admins-list',
@@ -34,6 +35,16 @@ export class AdminsListComponent {
   adminsService = inject(AdminsService);
   dialog = inject(MatDialog);
   dialogService = inject(DialogService);
+  fb = inject(FormBuilder);
+
+  searchForm: FormGroup;
+
+  constructor() {
+    this.searchForm = this.fb.group({
+      nameFormControl: new FormControl(''),
+      emailFormControl: new FormControl(''),
+    });
+  }
 
   ngAfterViewInit() {
     this.getAdminList();
@@ -52,7 +63,6 @@ export class AdminsListComponent {
 
   getAdminList() {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -60,6 +70,8 @@ export class AdminsListComponent {
           this.isLoadingResults = true;
           return this.adminsService
             .getAdminList(
+              this.searchForm.value.nameFormControl,
+              this.searchForm.value.emailFormControl,
               this.sort.active,
               this.sort.direction,
               this.paginator.pageIndex,
@@ -80,11 +92,6 @@ export class AdminsListComponent {
         })
       )
       .subscribe((data: any) => (this.adminList.data = data));
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.adminList.filter = filterValue.trim().toLowerCase();
   }
 
   disconnectAdminCompanyDialog(id: any) {

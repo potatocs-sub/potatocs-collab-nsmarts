@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CountriesAddDialogComponent } from '../../../components/dialogs/countries-dialog/countries-add-dialog/countries-add-dialog.component';
 import { HolidaysAddDialogComponent } from '../../../components/dialogs/holidays-dialog/holidays-add-dialog/holidays-add-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-countries-list',
@@ -22,6 +23,7 @@ export class CountriesListComponent {
   countriesService = inject(CountriesService);
   dialogService = inject(DialogService);
   dialog = inject(MatDialog);
+  fb = inject(FormBuilder);
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -34,13 +36,21 @@ export class CountriesListComponent {
   isLoadingResults = true;
   isRateLimitReached = false;
 
+  searchForm: FormGroup;
+
+  constructor() {
+    this.searchForm = this.fb.group({
+      nameFormControl: new FormControl(''),
+      codeFormControl: new FormControl(''),
+    });
+  }
+
   ngAfterViewInit() {
     this.getCountryList();
   }
 
   getCountryList() {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -48,6 +58,8 @@ export class CountriesListComponent {
           this.isLoadingResults = true;
           return this.countriesService
             .getCountryList(
+              this.searchForm.value.nameFormControl,
+              this.searchForm.value.codeFormControl,
               this.sort.active,
               this.sort.direction,
               this.paginator.pageIndex,

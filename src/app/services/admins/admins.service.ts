@@ -12,13 +12,22 @@ export class AdminsService {
   constructor() {}
   // 관리자 목록
   getAdminList(
+    nameFormControl: string,
+    emailFormControl: string,
     active: string,
     direction: string,
     pageIndex: number,
     pageSize: number
   ) {
     return this.http.get(this.baseUrl + '/nsmarts/admins/', {
-      params: { active, direction, pageIndex, pageSize },
+      params: {
+        nameFormControl,
+        emailFormControl,
+        active,
+        direction,
+        pageIndex,
+        pageSize,
+      },
     });
   }
 

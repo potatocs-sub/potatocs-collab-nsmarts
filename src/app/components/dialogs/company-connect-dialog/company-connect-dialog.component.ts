@@ -87,11 +87,6 @@ export class CompanyConnectDialogComponent {
       .subscribe((data: any) => (this.companies.data = data));
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.companies.filter = filterValue.trim().toLowerCase();
-  }
-
   connectCompanyAdmin(id: any) {
     const company = {
       company_id: id,
