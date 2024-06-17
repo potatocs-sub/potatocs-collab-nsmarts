@@ -36,12 +36,12 @@ export class AuthService {
 
   // get verification code + email
   getEcode(emailData: any) {
-    return this.http.post(this.baseUrl + '/auth/getEcode', emailData);
+    return this.http.post(this.baseUrl + '/nsAuth/getEcode', emailData);
   }
 
   // set temp password + email
   getTempPw(emailData: any) {
-    return this.http.put(this.baseUrl + '/auth/getTempPw', emailData);
+    return this.http.put(this.baseUrl + '/nsAuth/getTempPw', emailData);
   }
 
   logOut(): void {
