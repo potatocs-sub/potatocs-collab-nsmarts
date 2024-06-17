@@ -134,12 +134,8 @@ export class CompaniesEditComponent {
           this.dialogService.openDialogPositive('Successfully edited company.');
         },
         error: (err: any) => {
-          console.error(err);
-          const errorMessage =
-            err.status === 409
-              ? 'The company name is duplicated.'
-              : 'An error has occured.';
-          this.dialogService.openDialogNegative(errorMessage);
+          console.log(err);
+          this.dialogService.openDialogNegative(err.error.message);
         },
       });
     }

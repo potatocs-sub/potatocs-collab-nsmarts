@@ -38,19 +38,17 @@ export class CountriesAddDialogComponent {
 
     this.countriesService.addCountry(countryData).subscribe({
       next: (res: any) => {
-        if (res.message == 'Success add country') {
-          this.dialogRef.close();
-          this.dialogService.openDialogPositive('Successfully added country.');
-        }
+        this.dialogRef.close();
+        this.dialogService.openDialogPositive('Successfully added country.');
       },
       error: (err: any) => {
-        if (err.error.message == 'The country code is duplicated.') {
+        console.log(err);
+        if (err.status === 404) {
           this.dialogService.openDialogNegative(
             'The country code is duplicated.'
           );
-        } else if (err.error.message == 'adding Country Error') {
-          this.dialogRef.close();
-          this.dialogService.openDialogNegative('An error has occured.');
+        } else {
+          this.dialogService.openDialogNegative(err.error.message);
         }
       },
     });

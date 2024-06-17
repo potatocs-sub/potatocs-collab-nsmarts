@@ -124,7 +124,10 @@ export class CountriesListComponent {
         this.getCountryList();
         this.dialogService.openDialogPositive('Successfully deleted country.');
       },
-      error: (error) => {},
+      error: (err) => {
+        console.log(err);
+        this.dialogService.openDialogNegative(err.error.message);
+      },
     });
   }
 }

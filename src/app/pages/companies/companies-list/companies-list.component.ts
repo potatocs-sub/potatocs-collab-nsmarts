@@ -123,11 +123,15 @@ export class CompaniesListComponent {
 
   // 회사 삭제
   deleteCompany(id: any) {
-    this.companiesService.deleteCompany(id).subscribe((data: any) => {
-      if (data.message == 'delete company') {
-        this.dialogService.openDialogPositive('Successfully deleted company.');
+    this.companiesService.deleteCompany(id).subscribe({
+      next: (res: any) => {
         this.getCompanyList();
-      }
+        this.dialogService.openDialogPositive('Successfully deleted company.');
+      },
+      error: (err) => {
+        console.log(err);
+        this.dialogService.openDialogNegative(err.error.message);
+      },
     });
   }
 }

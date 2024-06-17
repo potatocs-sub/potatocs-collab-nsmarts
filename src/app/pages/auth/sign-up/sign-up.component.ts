@@ -55,7 +55,7 @@ export class SignUpComponent {
         this.router.navigate(['/sign-in']);
       },
       error: (error: any) => {
-        console.log(error.message);
+        console.log(error);
         this.dialogService.openDialogNegative(error.message);
       },
     });

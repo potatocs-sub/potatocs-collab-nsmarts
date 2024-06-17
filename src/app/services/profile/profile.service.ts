@@ -17,7 +17,7 @@ export class ProfileService {
     formData.append('file', imgae, imgae?.name);
     formData.append('id', id);
     return this.http.post<HttpResMsg<any>>(
-      this.baseUrl + '/nsmarts/profileImageChange',
+      this.baseUrl + '/nsmarts/profiles',
       formData,
       {
         reportProgress: true,
@@ -27,7 +27,7 @@ export class ProfileService {
 
   updateProfile(formData: any): Observable<HttpResMsg<any>> {
     return this.http.patch<HttpResMsg<any>>(
-      this.baseUrl + '/nsmarts/profileChange',
+      this.baseUrl + '/nsmarts/profiles',
       formData
     );
   }

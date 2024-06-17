@@ -90,7 +90,13 @@ export class HolidaysAddDialogComponent {
       },
       error: (err) => {
         console.log(err);
-        this.dialogService.openDialogNegative(err.error.message);
+        if (err.status === 404) {
+          this.dialogService.openDialogNegative(
+            'The country holiday date is duplicated.'
+          );
+        } else {
+          this.dialogService.openDialogNegative(err.error.message);
+        }
       },
     });
   }
