@@ -5,52 +5,47 @@ import { PositiveDialogComponent } from '../../components/dialogs/positive-dialo
 import { ConfirmDialogComponent } from '../../components/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DialogService {
+  public dialog = inject(MatDialog);
 
-  public dialog = inject(MatDialog)
-
-  constructor() { }
+  constructor() {}
 
   // confirm
   openDialogConfirm(data: any) {
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        content: data
-      }
+        content: data,
+      },
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    // 	console.log(result);
     return dialogRef.afterClosed();
   }
-
 
   // positive
   openDialogPositive(data: any) {
     const dialogRef = this.dialog.open(PositiveDialogComponent, {
       data: {
-        content: data
-      }
+        content: data,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('dialog close');
-    })
+    });
   }
 
   // negative
   openDialogNegative(data: any) {
     const dialogRef = this.dialog.open(NegativeDialogComponent, {
       data: {
-        content: data
-      }
+        content: data,
+      },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('dialog close');
-    })
+    });
   }
 }

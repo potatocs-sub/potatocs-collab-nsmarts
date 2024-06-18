@@ -1,14 +1,14 @@
-import { CompanyConnectDialogComponent } from './../../components/dialogs/company-connect-dialog/company-connect-dialog.component';
+import { CompanyConnectDialogComponent } from '../../../components/dialogs/company-connect-dialog/company-connect-dialog.component';
 import { Component, ViewChild, inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminsService } from '../../services/admins/admins.service';
+import { AdminsService } from '../../../services/admins/admins.service';
 import { MatSort } from '@angular/material/sort';
 import { catchError, map, merge, of, startWith, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { MaterialsModule } from '../../materials/materials.module';
+import { MaterialsModule } from '../../../materials/materials.module';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogService } from '../../stores/dialog/dialog.service';
+import { DialogService } from '../../../stores/dialog/dialog.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({

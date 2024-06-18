@@ -11,7 +11,7 @@ import { SplashScreenService } from './services/splash-screen.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'nsmarts';
+  title = 'potatocs-nsmarts';
 
   constructor(private splashScreenService: SplashScreenService) {}
 }

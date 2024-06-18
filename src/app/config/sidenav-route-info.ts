@@ -22,7 +22,7 @@ export const sidenavRouteInfo: NavigationItem[] = [
       },
     ],
   },
-  // Holiday Management
+  // HOLIDAY MANAGEMENT
   {
     type: 'subheading',
     label: 'HOLIDAY MANAGEMENT',

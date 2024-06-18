@@ -52,10 +52,8 @@ export const routes: Routes = [
       },
       {
         path: 'admins',
-        loadComponent: () =>
-          import('./pages/admins/admins-list.component').then(
-            (m) => m.AdminsListComponent
-          ),
+        loadChildren: () =>
+          import('./pages/admins/routes').then((m) => m.ADMINS_ROUTES),
       },
     ],
   },

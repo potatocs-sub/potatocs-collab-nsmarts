@@ -6,9 +6,7 @@
 $sidenav-width: 279px;
 $sidenav-toolbar-height: 64px; // material default
 $sidenav-toolbar-height-mobile: 56px; // material default <599px
-//$sidenav-bgColor: #1a202e;
 $sidenav-bgColor: #00154f;
-//$sidenav-active-color: #141924;
 $sidenav-active-color: #f4af1b;
 
 html,
@@ -19,11 +17,7 @@ body {
 }
 
 /* 각 sccs에 넣으면 적용이 안되는 Angular Material */
-
-.mat-mdc-card {
-  box-shadow: none !important;
-}
-
+// tailwind css 필터부분 깨지는거 수정
 .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field
   .mdc-notched-outline__notch {
   border-right-style: hidden !important;
@@ -32,13 +26,6 @@ body {
 
 // meeting-list 페이지 filter 클래스 input
 .filter {
-  // tailwind css 필터부분 깨지는거 수정
-  .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field
-    .mdc-notched-outline__notch {
-    border-right-style: hidden !important;
-    box-shadow: none !important;
-  }
-
   .mat-mdc-text-field-wrapper {
     height: 50px !important;
   }
@@ -54,26 +41,12 @@ body {
   }
 }
 
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 .mat-mdc-table thead {
   background: none !important;
+}
+
+.mat-mdc-card {
+  box-shadow: none !important;
 }
 
 // dialog scroll
