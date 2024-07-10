@@ -35,16 +35,11 @@ export class FindPwComponent {
     });
   }
 
-  ngOnInit(): void {}
-
   get f() {
     return this.form.controls;
   }
 
-  ngOnDestroy(): void {}
-
   getEcode() {
-    // console.log(this.emailFormData);
     this.authService.getEcode(this.emailFormData).subscribe({
       next: (data: any) => {
         if (data.message == 'created') {

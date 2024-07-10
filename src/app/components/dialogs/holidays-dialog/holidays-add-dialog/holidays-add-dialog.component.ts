@@ -120,7 +120,9 @@ export class HolidaysAddDialogComponent {
     this.holidaysService.deleteHoliday(id, this.data.countryId).subscribe({
       next: (res: any) => {
         this.getCountryHolidayList();
-        this.dialogService.openDialogPositive(res.message);
+        this.dialogService.openDialogPositive(
+          'Successfully deleted country holiday.'
+        );
       },
     });
   }
